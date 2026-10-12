@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Engine Economics | Stephen Dugger</title>
+<meta name="description" content="What a side business really pays per hour once you count the hours it takes to win each customer, how long they stay, and what it costs to serve them. Nothing you enter leaves your browser.">
+<link rel="canonical" href="https://stephendugger.com/tools/engine-economics/">
+<meta property="og:site_name" content="Stephen Dugger">
+<meta property="og:title" content="Engine Economics | Stephen Dugger">
+<meta property="og:description" content="What a side business really pays per hour once you count the hours it takes to win each customer, how long they stay, and what it costs to serve them. Nothing you enter leaves your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stephendugger.com/tools/engine-economics/">
+<meta property="og:image" content="https://stephendugger.com/assets/card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<nav><div class="nav-inner">
+<a class="nav-mark" href="/"><span class="dot"></span> STEPHEN DUGGER</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<div class="nav-links" id="navLinks"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a></div>
+</div></nav>
+<main>
+<link rel="stylesheet" href="/assets/tools.css">
+
+<div class="page-head"><div class="wrap narrow">
+  <div class="eyebrow">Tool · Engine Economics</div>
+  <h1>A good business can still be<br><em>the wrong engine.</em></h1>
+  <p class="sub">I learned this the expensive way. I built a coaching business I believed in, and when I finally counted the hours it took to win each client against what each client was worth, it paid about what an off-duty shift does. Working harder would only have made the loss bigger. Run your idea through the same math before you spend a year on it.</p>
+</div></div>
+
+<section><div class="wrap narrow prose">
+  <div class="note">Nothing you type here is saved or sent anywhere. The math runs in your browser, and closing the page erases it.</div>
+
+  <div class="calc">
+    <div class="sublabel">What a customer is worth</div>
+    <div class="fields">
+      <div class="field">
+        <label for="kind">How customers pay</label>
+        <select id="kind">
+          <option value="recurring">Every month (retainer, subscription, ongoing service)</option>
+          <option value="once">Once (a project, a product, a single job)</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="price" id="priceLabel">Price per month</label>
+        <input type="number" id="price" min="0" step="10">
+      </div>
+      <div class="field" id="staysField">
+        <label for="stays">How many months a customer stays, on average</label>
+        <input type="number" id="stays" min="1" step="1" value="12">
+        <small>Be honest. If you don't know yet, guess low.</small>
+      </div>
+      <div class="field">
+        <label for="fees">Payment and platform fees %</label>
+        <input type="number" id="fees" min="0" max="60" step="0.5" value="3">
+      </div>
+      <div class="field">
+        <label for="cost" id="costLabel">Direct costs per customer, per month</label>
+        <input type="number" id="cost" min="0" step="5" value="0">
+        <small>Software, materials, subcontractors. Anything you spend because this customer exists.</small>
+      </div>
+    </div>
+
+    <div class="sublabel">What a customer costs you in hours</div>
+    <div class="fields">
+      <div class="field">
+        <label for="win">Hours to win one customer</label>
+        <input type="number" id="win" min="0" step="0.5">
+        <small>Everything it takes to land one: conversations, proposals, follow-ups, plus your share of posting, networking and pitches that didn't land. This is the number people leave out.</small>
+      </div>
+      <div class="field">
+        <label for="serve" id="serveLabel">Hours to serve one customer, per month</label>
+        <input type="number" id="serve" min="0" step="0.5">
+      </div>
+    </div>
+
+    <div class="sublabel">Your comparison and your limits</div>
+    <div class="fields">
+      <div class="field">
+        <label for="tax">Tax on this income, all-in %</label>
+        <input type="number" id="tax" min="0" max="60" step="1" value="27">
+      </div>
+      <div class="field">
+        <label for="job">Your job's take-home pay per hour</label>
+        <input type="number" id="job" min="0" step="0.5">
+        <small>The number this engine has to beat. Monthly take-home divided by hours worked.</small>
+      </div>
+      <div class="field">
+        <label for="weekly">Hours a week you can actually give it</label>
+        <input type="number" id="weekly" min="0" step="1" value="10">
+      </div>
+      <div class="field">
+        <label for="bills">Your bills number per year (optional)</label>
+        <input type="number" id="bills" min="0" step="1000">
+        <small>From <a class="inline" href="/tools/the-way-out/">The Way Out</a>. Shows whether this engine alone could clear it.</small>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn solid" id="go" type="button">Run the numbers</button>
+      <button class="btn" id="exGood" type="button">Example: a retainer that works</button>
+      <button class="btn" id="exBad" type="button">Example: a coaching business that doesn't</button>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="big">
+      <div><div class="n gold" id="rHour">$0</div><div class="l">What it really pays per hour, after tax</div></div>
+      <div><div class="n" id="rValue">$0</div><div class="l">One customer is worth</div></div>
+    </div>
+    <p id="r1"></p>
+    <p id="r2"></p>
+    <p id="r3"></p>
+    <p id="r4"></p>
+    <div id="rWarn"></div>
+    <div class="keep no-print" id="keep"></div>
+  </div>
+
+  <p class="small" style="margin-top:34px">How it works: a customer's value is what they pay over the time they stay, minus fees and direct costs. Their cost in hours is the time to win them plus the time to serve them. Divide one by the other and you have the real hourly wage of the business. At capacity, part of your hours goes to replacing the customers who leave. Education, not financial or tax advice.</p>
+
+  <div class="nexttool">
+    <div class="label">All the tools</div>
+    <p><a class="inline" href="/tools/">See all the tools</a>, or go back to <a class="inline" href="/tools/the-way-out/">The Way Out</a>.</p>
+  </div>
+</div></section>
+
+<script src="/assets/tools.js"></script>
+<script>
+(function () {
+  const T = window.Tools, $ = (id) => document.getElementById(id);
+
+  function setKind() {
+    const once = $('kind').value === 'once';
+    $('staysField').style.display = once ? 'none' : '';
+    $('priceLabel').textContent = once ? 'Price per sale or project' : 'Price per month';
+    $('costLabel').textContent = once ? 'Direct costs per sale' : 'Direct costs per customer, per month';
+    $('serveLabel').textContent = once ? 'Hours to deliver one sale or project' : 'Hours to serve one customer, per month';
+  }
+  $('kind').addEventListener('change', setKind);
+
+  let lastText = '';
+  function run() {
+    const once = $('kind').value === 'once';
+    const price = T.pos('price'), months = once ? 1 : Math.max(1, T.pos('stays') || 1);
+    const fees = Math.min(60, T.pos('fees')) / 100, cost = T.pos('cost'), win = T.pos('win'), serve = T.pos('serve');
+    const tax = Math.min(60, T.pos('tax')) / 100, job = T.pos('job'), weekly = T.pos('weekly'), bills = T.pos('bills');
+
+    $('result').classList.add('show');
+    $('rWarn').innerHTML = '';
+    ['r1', 'r2', 'r3', 'r4'].forEach((id) => { $(id).innerHTML = ''; });
+    const revenue = price * months;
+    const value = revenue * (1 - fees) - cost * months;
+    const hoursPer = win + serve * months;
+    if (price <= 0 || hoursPer <= 0) {
+      $('rHour').textContent = 'n/a'; $('rValue').textContent = T.fmt(Math.max(0, value));
+      $('r1').textContent = 'Put in a price and the hours it takes to win and serve a customer.';
+      return;
+    }
+    const pre = value / hoursPer, after = pre * (1 - tax);
+    $('rHour').textContent = T.fmt(after) + '/hr';
+    $('rValue').textContent = T.fmt(value);
+
+    $('r1').innerHTML = 'Each customer brings in <strong>' + T.fmt(revenue) + '</strong>' + (once ? '' : ' over ' + months + ' months') + ', or <strong>' + T.fmt(value) + '</strong> after fees and costs. Each one costs you <strong>' + (Math.round(hoursPer * 10) / 10) + ' hours</strong>: ' + win + ' to win, ' + (Math.round(serve * months * 10) / 10) + ' to serve. That\'s <strong>' + T.fmt(pre) + ' an hour before tax, ' + T.fmt(after) + ' after</strong>.';
+
+    const winShare = win / hoursPer;
+    $('r2').innerHTML = '<strong>' + Math.round(winShare * 100) + '% of your hours</strong> go to winning the customer rather than serving them.' +
+      (winShare > 0.4 ? ' That\'s the expensive part. It falls when customers stay longer, pay more, or come to you by referral.' : ' That\'s healthy: most of your time is paid work.');
+
+    if (job > 0) {
+      const ratio = after / job;
+      $('r3').innerHTML = ratio >= 1
+        ? 'That beats your job\'s ' + T.fmt(job) + ' an hour by <strong>' + Math.round((ratio - 1) * 100) + '%</strong>. This engine pays better than the paycheck it would replace.'
+        : 'Your job pays ' + T.fmt(job) + ' an hour take-home. This engine pays <strong>' + Math.round((1 - ratio) * 100) + '% less</strong>. As it stands, every hour you move from the job to this business is a pay cut.';
+    }
+
+    if (weekly > 0) {
+      const hoursMo = weekly * 52 / 12;
+      const perCustMo = once ? (win + serve) : (serve + win / months); // hours per customer per month at steady state
+      const n = hoursMo / perCustMo;
+      const incomeMo = once ? n * (price * (1 - fees) - cost) : n * (price * (1 - fees) - cost);
+      const incomeYr = incomeMo * 12;
+      $('r4').innerHTML = 'At ' + weekly + ' hours a week, you can carry about <strong>' + (once ? Math.floor(n * 10) / 10 + ' sales a month' : Math.floor(n * 10) / 10 + ' customers') + '</strong> (part of each month goes to replacing the ones who leave). That\'s about <strong>' + T.fmt(incomeYr) + ' a year before tax</strong>' +
+        (bills > 0 ? ': <strong>' + Math.round(incomeYr / bills * 100) + '% of your bills number</strong>. ' + (incomeYr >= bills ? 'On paper, this engine alone could clear it.' : 'To clear it alone, you\'d need about ' + Math.ceil(weekly * bills / Math.max(1, incomeYr)) + ' hours a week, or better numbers above.') : '.');
+    }
+
+    if (value <= 0) $('rWarn').innerHTML = '<div class="warn">Each customer is worth less than nothing after fees and costs. More customers means bigger losses.</div>';
+    else if (job > 0 && after < job * 0.75) $('rWarn').innerHTML = '<div class="warn">This is the trap I fell into: a business that works, at a wage below the job it\'s supposed to replace. Working harder makes the loss bigger. Change the numbers (price, how long customers stay, hours to win) before you add hours.</div>';
+
+    lastText = 'THE ENGINE\n' + (once ? 'One-time sales at ' + T.fmt(price) : T.fmt(price) + '/mo, customers stay ' + months + ' months') + '\nFees ' + Math.round(fees * 100) + '%, direct costs ' + T.fmt(cost) + (once ? '/sale' : '/mo') + '\n' +
+      'Hours to win: ' + win + '  |  Hours to serve: ' + serve + (once ? '' : '/mo') + '\n\n' +
+      'One customer is worth: ' + T.fmt(value) + '\nHours per customer: ' + (Math.round(hoursPer * 10) / 10) + ' (' + Math.round(winShare * 100) + '% winning them)\n' +
+      'Real hourly wage: ' + T.fmt(pre) + ' before tax, ' + T.fmt(after) + ' after\n' +
+      (job > 0 ? 'My job pays: ' + T.fmt(job) + '/hr take-home\n' : '') +
+      ($('r4').innerText ? '\n' + $('r4').innerText + '\n' : '') +
+      '\nRule: fix the numbers before you add hours. A business that pays less than the job it replaces gets worse the harder you work it.';
+  }
+
+  T.wireKeep($('keep'), () => lastText, 'My engine economics');
+  $('go').addEventListener('click', run);
+  $('exGood').addEventListener('click', () => {
+    $('kind').value = 'recurring'; setKind();
+    $('price').value = 900; $('stays').value = 18; $('fees').value = 3; $('cost').value = 40;
+    $('win').value = 8; $('serve').value = 5; $('tax').value = 27; $('job').value = 28; $('weekly').value = 10; $('bills').value = 84000; run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('exBad').addEventListener('click', () => {
+    $('kind').value = 'recurring'; setKind();
+    $('price').value = 250; $('stays').value = 3; $('fees').value = 3; $('cost').value = 0;
+    $('win').value = 18; $('serve').value = 3; $('tax').value = 27; $('job').value = 28; $('weekly').value = 10; $('bills').value = 84000; run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('clear').addEventListener('click', () => {
+    ['price', 'win', 'serve', 'job', 'bills'].forEach((id) => { $(id).value = ''; });
+    $('stays').value = 12; $('fees').value = 3; $('cost').value = 0; $('tax').value = 27; $('weekly').value = 10;
+    $('kind').value = 'recurring'; setKind(); $('result').classList.remove('show');
+  });
+})();
+</script>
+</main>
+<footer>
+<div class="foot-links"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a><a href="/formation/">Formation</a></div>
+<p class="made">Written by Stephen Dugger with help from Claude, an AI model. Every claim on this site is his and was checked by him.</p>
+<div class="copy">STEPHENDUGGER.COM &nbsp;◎&nbsp; ALL DEMONSTRATIONS, ONE SOURCE &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>{const o=l.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+</body>
+</html>

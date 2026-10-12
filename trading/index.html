@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Monad Trading | Stephen Dugger</title>
+<meta name="description" content="Systematic futures trading by written rules, with no discretion. How the method works and why it's built that way.">
+<link rel="canonical" href="https://stephendugger.com/trading/">
+<meta property="og:site_name" content="Stephen Dugger">
+<meta property="og:title" content="Monad Trading | Stephen Dugger">
+<meta property="og:description" content="Systematic futures trading by written rules, with no discretion. How the method works and why it's built that way.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stephendugger.com/trading/">
+<meta property="og:image" content="https://stephendugger.com/assets/card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<nav><div class="nav-inner">
+<a class="nav-mark" href="/"><span class="dot"></span> STEPHEN DUGGER</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<div class="nav-links" id="navLinks"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/" class="active">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/">Tools</a><a href="/about/">About</a></div>
+</div></nav>
+<main>
+<div class="page-head"><div class="wrap">
+  <div class="eyebrow">Trading &nbsp;·&nbsp; Monad Trading</div>
+  <h1>The rules decide.<br><em>I follow them.</em></h1>
+  <p class="sub">I trade futures with mechanical systems: every entry, exit and position size comes from rules written down before the trade, never from a feeling on the day.</p>
+</div></div>
+
+<section><div class="wrap narrow prose">
+  <div class="label">Why no discretion</div>
+  <h2>Judgment is where accounts die.</h2>
+  <p>Most traders don't lose because their idea was wrong. They lose because they moved a stop after the trade went against them, doubled up to win it back, or skipped the next signal because the last one hurt. Each of those is a decision made under pressure, and pressure makes bad decisions.</p>
+  <p>A mechanical system removes that decision. The rule was set when I was calm, it was tested on years of data before a dollar was at risk, and on the day all I do is carry it out. That's harder than it sounds, because following a rule through a losing streak feels wrong every single time. The work is mostly the discipline of not interfering.</p>
+  <p>Taoism has a name for this: <em>wu wei</em>, acting without forcing. It's the same posture. You stop fighting what the market is doing and let the system respond to it.</p>
+</div></section>
+
+<section><div class="wrap narrow prose">
+  <div class="label">What the systems do</div>
+  <h2>Two kinds of rules.</h2>
+  <ul class="checks">
+    <li><strong>Trend-following across many markets.</strong> Stock indexes, bonds, currencies, metals, energy and agriculture. When a market trends, hold it in the direction of the trend, sized so that every position carries about the same risk. Most trades are small losses; a few large trends pay for all of them.</li>
+    <li><strong>Intraday rules on index futures.</strong> Short, defined trades taken off the opening range of the session, with the stop and the target set before entry.</li>
+  </ul>
+  <p>Every system has to pass the same test before it trades: an explainable reason it should work, results that hold up on data it wasn't built on, and costs and slippage counted honestly. Most ideas fail that test, and I've retired systems that once looked great when the evidence turned against them.</p>
+</div></section>
+
+<section><div class="wrap narrow prose">
+  <div class="label">What you won't find here</div>
+  <h2>No results, positions or signals.</h2>
+  <p>I don't post returns, open positions or trade calls here. What I do share is the process: how a system gets built, how it gets tested, and what I learned when one failed. That part is useful to anyone. A trade call is useful to no one by the time they read it.</p>
+</div></section>
+</main>
+<footer>
+<div class="foot-links"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/" class="active">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/">Tools</a><a href="/about/">About</a><a href="/formation/">Formation</a></div>
+<p class="made">Written by Stephen Dugger with help from Claude, an AI model. Every claim on this site is his and was checked by him.</p>
+<div class="copy">STEPHENDUGGER.COM &nbsp;◎&nbsp; ALL DEMONSTRATIONS, ONE SOURCE &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>{const o=l.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+</body>
+</html>

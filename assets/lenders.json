@@ -1,0 +1,98 @@
+{
+  "_about": "Lender pricing for the Buy-Borrow-Die tool. Benchmark-based products (benchmark + spread) go live automatically from FRED. Base-rate products are the firm's own posted rate and must be re-verified by hand when the firm changes it. Every entry carries its source and the date it was checked. update_rates.py turns this into rates.json.",
+  "products": [
+    {
+      "id": "ibkr-pro-100k",
+      "firm": "Interactive Brokers",
+      "product": "IBKR Pro margin, first $100k",
+      "type": "benchmark",
+      "benchmark": "EFFR",
+      "spread": 1.5,
+      "source_url": "https://www.interactivebrokers.com/en/trading/margin-rates.php",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Benchmark is the US fed funds effective rate. Blended by tier."
+    },
+    {
+      "id": "ibkr-pro-1m",
+      "firm": "Interactive Brokers",
+      "product": "IBKR Pro margin, $100k to $1M",
+      "type": "benchmark",
+      "benchmark": "EFFR",
+      "spread": 1.0,
+      "source_url": "https://www.interactivebrokers.com/en/trading/margin-rates.php",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Blended: the first $100k is charged at the higher tier."
+    },
+    {
+      "id": "ibkr-pro-50m",
+      "firm": "Interactive Brokers",
+      "product": "IBKR Pro margin, $1M to $50M",
+      "type": "benchmark",
+      "benchmark": "EFFR",
+      "spread": 0.75,
+      "source_url": "https://www.interactivebrokers.com/en/trading/margin-rates.php",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Blended by tier."
+    },
+    {
+      "id": "schwab-pal-small",
+      "firm": "Charles Schwab",
+      "product": "Pledged Asset Line, under $250k",
+      "type": "benchmark",
+      "benchmark": "SOFR",
+      "spread": 3.75,
+      "source_url": "https://www.schwab.com/pledged-asset-line/rates",
+      "verified": "2026-10-12",
+      "confidence": "reported",
+      "note": "Schwab prices PAL as SOFR plus a spread set at origination. This spread is third-party reported (sources conflict, 3.75% to 4.40%). Confirm with Schwab."
+    },
+    {
+      "id": "schwab-pal-large",
+      "firm": "Charles Schwab",
+      "product": "Pledged Asset Line, $5M and up",
+      "type": "benchmark",
+      "benchmark": "SOFR",
+      "spread": 1.75,
+      "source_url": "https://www.schwab.com/pledged-asset-line/rates",
+      "verified": "2026-10-12",
+      "confidence": "reported",
+      "note": "Third-party reported spread. Confirm with Schwab."
+    },
+    {
+      "id": "fidelity-margin-250k",
+      "firm": "Fidelity",
+      "product": "Margin, $250k to $500k",
+      "type": "base",
+      "rate": 10.325,
+      "source_url": "https://www.fidelity.com/trading/commissions-margin-rates",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Base rate 10.825% (effective 2026-09-18) minus 0.50% at this tier. Fidelity changes its base rate on its own schedule."
+    },
+    {
+      "id": "fidelity-margin-1m",
+      "firm": "Fidelity",
+      "product": "Margin, over $1M",
+      "type": "base",
+      "rate": 7.75,
+      "source_url": "https://www.fidelity.com/trading/margin-loans/overview",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Posted on Fidelity's margin-loans overview page."
+    },
+    {
+      "id": "schwab-margin-250k",
+      "firm": "Charles Schwab",
+      "product": "Margin, $250k to $500k",
+      "type": "base",
+      "rate": 10.325,
+      "source_url": "https://www.schwab.com/margin",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "From Schwab's own comparison page. Schwab changes its base rate on its own schedule."
+    }
+  ]
+}

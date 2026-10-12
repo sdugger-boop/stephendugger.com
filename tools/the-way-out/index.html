@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>The Way Out | Stephen Dugger</title>
+<meta name="description" content="The three conditions for leaving a paycheck: twelve months of real side income that covers your bills, six months in reserve, and health coverage. See where you stand on each. Nothing you enter leaves your browser.">
+<link rel="canonical" href="https://stephendugger.com/tools/the-way-out/">
+<meta property="og:site_name" content="Stephen Dugger">
+<meta property="og:title" content="The Way Out | Stephen Dugger">
+<meta property="og:description" content="The three conditions for leaving a paycheck: twelve months of real side income that covers your bills, six months in reserve, and health coverage. See where you stand on each. Nothing you enter leaves your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stephendugger.com/tools/the-way-out/">
+<meta property="og:image" content="https://stephendugger.com/assets/card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<nav><div class="nav-inner">
+<a class="nav-mark" href="/"><span class="dot"></span> STEPHEN DUGGER</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<div class="nav-links" id="navLinks"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a></div>
+</div></nav>
+<main>
+<link rel="stylesheet" href="/assets/tools.css">
+
+<div class="page-head"><div class="wrap narrow">
+  <div class="eyebrow">Tool · The Way Out</div>
+  <h1>Decide when you get to leave<br><em>before you want to.</em></h1>
+  <p class="sub">Most exit plans die one of two ways: you quit on a feeling and the side income has to pay the mortgage before it's ready, or "enough" never gets a number and the date keeps sliding. The fix is a rule written in advance. This is the one I run my own exit on: three conditions, all true at once.</p>
+</div></div>
+
+<section><div class="wrap narrow prose">
+  <div class="note">Nothing you type here is saved or sent anywhere. The math runs in your browser, and closing the page erases it.</div>
+
+  <div class="calc">
+    <div class="sublabel">Your bills number</div>
+    <div class="fields">
+      <div class="field">
+        <label for="spend">Monthly spending, after tax</label>
+        <input type="number" id="spend" min="0" step="10">
+        <small>Everything you spend in a typical month. Your bills, not your salary.</small>
+      </div>
+      <div class="field">
+        <label for="health">Health insurance on your own, monthly</label>
+        <input type="number" id="health" min="0" step="10">
+        <small>What it would cost without an employer. Often the line item people forget.</small>
+      </div>
+      <div class="field">
+        <label for="tax">Tax on self-employment income, all-in %</label>
+        <input type="number" id="tax" min="0" max="60" step="1" value="27">
+        <small>Federal, state and self-employment tax together. 25 to 30% is a rough range; yours depends on your state and deductions.</small>
+      </div>
+      <div class="field">
+        <label for="rmonths">Months of bills to hold in reserve</label>
+        <select id="rmonths"><option>3</option><option selected>6</option><option>9</option><option>12</option></select>
+      </div>
+    </div>
+
+    <div class="sublabel">Where you stand</div>
+    <div class="fields">
+      <div class="field">
+        <label for="t12">Side income actually received, last 12 months</label>
+        <input type="number" id="t12" min="0" step="100" value="0">
+        <small>Money that arrived, before tax. Not invoices, not projections, not one good month times twelve.</small>
+      </div>
+      <div class="field">
+        <label for="reserve">Cash in reserve now</label>
+        <input type="number" id="reserve" min="0" step="100" value="0">
+        <small>Separate from your sinking fund. The <a class="inline" href="/tools/reserve-builder/">Reserve Builder</a> helps with both.</small>
+      </div>
+      <div class="field full">
+        <label class="check"><input type="checkbox" id="covered"> <span>Health coverage is arranged for after I leave (a plan chosen, a spouse's plan, or similar)</span></label>
+      </div>
+    </div>
+
+    <div class="sublabel">Your engines (optional)</div>
+    <p class="small">The income has to come from somewhere. List what you're building or could build, and run each one through three tests. For the full math on one engine, use <a class="inline" href="/tools/engine-economics/">Engine Economics</a>.</p>
+    <table>
+      <thead><tr><th style="width:34%">Engine</th><th>Uses what you already have?</th><th class="r">Hours to win a customer</th><th>Income</th><th></th></tr></thead>
+      <tbody id="engines"></tbody>
+    </table>
+    <button class="btn addrow" type="button" id="add">+ Add an engine</button>
+
+    <div class="buttons">
+      <button class="btn solid" id="go" type="button">Check my three conditions</button>
+      <button class="btn" id="example" type="button">Try an example</button>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="big">
+      <div><div class="n gold" id="rScore">0 of 3</div><div class="l">Conditions met</div></div>
+      <div><div class="n" id="rBills">$0</div><div class="l">Your bills number, per year</div></div>
+    </div>
+    <p id="rVerdict"></p>
+    <div class="gauge" id="gauge"></div>
+    <p id="rGap"></p>
+    <div id="rEngines"></div>
+    <div class="keep no-print" id="keep"></div>
+  </div>
+
+  <div class="prose" style="margin-top:34px">
+    <p class="small">Where the rule comes from: the shape is the Barbell. Keep the safe job on one end and build something that earns without your hours on the other. The leverage idea is Naval Ravikant's, and the name is Nassim Taleb's; I wrote my version into Chapter 11 of <a class="inline" href="/press/"><em>Root Access</em></a>. Living it sharpened the trigger: replace your bills, not your salary; demand twelve months of real income, not one good month; and write the reserve and health coverage into the rule, because implicit is where plans break.</p>
+    <p class="small">This is a planning tool, not tax, legal or financial advice. Run the numbers that matter with someone who can see your whole situation.</p>
+  </div>
+
+  <div class="nexttool">
+    <div class="label">Next tool</div>
+    <p><a class="inline" href="/tools/engine-economics/">Engine Economics</a>: what a side business really pays per hour, before you spend a year on it.</p>
+  </div>
+</div></section>
+
+<script src="/assets/tools.js"></script>
+<script>
+(function () {
+  const T = window.Tools, $ = (id) => document.getElementById(id);
+  const tbody = $('engines');
+
+  function addRow(d) {
+    d = d || ['', 'yes', '', 'steady'];
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><input type="text" placeholder="e.g. bookkeeping clients" aria-label="Engine" value="' + T.esc(d[0]) + '"></td>' +
+      '<td><select aria-label="Uses what you already have"><option value="yes">Yes</option><option value="partly">Partly</option><option value="no">No, new skill</option></select></td>' +
+      '<td><input type="number" min="0" step="1" aria-label="Hours to win a customer" value="' + d[2] + '"></td>' +
+      '<td><select aria-label="Steady or lumpy"><option value="steady">Steady (recurring)</option><option value="lumpy">Lumpy (irregular)</option></select></td>' +
+      '<td><button class="del" type="button" aria-label="Remove">×</button></td>';
+    tr.querySelectorAll('select')[0].value = d[1];
+    tr.querySelectorAll('select')[1].value = d[3];
+    tr.querySelector('.del').addEventListener('click', () => { tr.remove(); });
+    tbody.appendChild(tr);
+  }
+  addRow();
+  $('add').addEventListener('click', () => addRow());
+
+  function bar(name, sub, frac, met, statusText) {
+    const w = Math.max(0, Math.min(1, frac)) * 100;
+    return '<div class="row"><div><div class="name">' + name + '<small>' + sub + '</small></div>' +
+      '<div class="track"><div class="fill" style="width:' + w.toFixed(1) + '%"></div></div></div>' +
+      '<div class="status ' + (met ? 'met' : 'not') + '">' + statusText + '</div></div>';
+  }
+
+  let lastText = '';
+  function run() {
+    const spend = T.pos('spend'), health = T.pos('health'), tax = Math.min(60, T.pos('tax'));
+    const rmonths = parseInt($('rmonths').value, 10), t12 = T.pos('t12'), reserve = T.pos('reserve'), covered = $('covered').checked;
+    const monthly = spend + health;
+    const billsYear = monthly * 12 / (1 - tax / 100);
+    const reserveTarget = monthly * rmonths;
+    const c1 = billsYear > 0 && t12 >= billsYear, c2 = reserveTarget > 0 && reserve >= reserveTarget, c3 = covered;
+    const score = [c1, c2, c3].filter(Boolean).length;
+
+    $('result').classList.add('show');
+    if (monthly <= 0) {
+      $('rScore').textContent = 'n/a'; $('rBills').textContent = '$0'; $('gauge').innerHTML = ''; $('rGap').textContent = ''; $('rEngines').innerHTML = '';
+      $('rVerdict').textContent = 'Put in your monthly spending to get your bills number.';
+      return;
+    }
+    $('rScore').textContent = score + ' of 3';
+    $('rBills').textContent = T.fmt(billsYear);
+    $('rVerdict').innerHTML = score === 3
+      ? '<strong>All three are true.</strong> By this rule, the math says you can go. The rule doesn\'t make the decision for you; it tells you the decision is now safe to make.'
+      : '<strong>Not yet.</strong> That\'s the rule doing its job. It keeps the side income from having to pay the mortgage before it\'s ready.';
+
+    $('gauge').innerHTML =
+      bar('1 · Twelve months of side income covers your bills', T.fmt(t12) + ' of ' + T.fmt(billsYear) + ' a year', billsYear ? t12 / billsYear : 0, c1, c1 ? 'MET' : Math.round(billsYear ? t12 / billsYear * 100 : 0) + '%') +
+      bar('2 · ' + rmonths + ' months of bills in reserve', T.fmt(reserve) + ' of ' + T.fmt(reserveTarget), reserveTarget ? reserve / reserveTarget : 0, c2, c2 ? 'MET' : Math.round(reserveTarget ? reserve / reserveTarget * 100 : 0) + '%') +
+      bar('3 · Health coverage arranged', covered ? 'Arranged' : 'Not arranged yet', covered ? 1 : 0, c3, c3 ? 'MET' : 'NOT YET');
+
+    const needMo = billsYear / 12, haveMo = t12 / 12;
+    $('rGap').innerHTML = c1
+      ? 'Your side income averages <strong>' + T.fmt(haveMo) + ' a month</strong> against <strong>' + T.fmt(needMo) + '</strong> needed.'
+      : 'To clear condition 1, side income has to average <strong>' + T.fmt(needMo) + ' a month</strong> before tax, every month, for a year. Over the last twelve months it averaged <strong>' + T.fmt(haveMo) + '</strong>, so the gap is <strong>' + T.fmt(needMo - haveMo) + ' a month</strong>.';
+
+    const engines = [...tbody.children].map((tr) => {
+      const s = tr.querySelectorAll('select'), f = tr.querySelectorAll('input');
+      return { name: f[0].value.trim(), uses: s[0].value, hours: f[1].value === '' ? null : T.pos(f[1]), type: s[1].value };
+    }).filter((e) => e.name);
+    let eh = '', et = '';
+    if (engines.length) {
+      const steady = engines.filter((e) => e.type === 'steady');
+      eh = '<div class="label" style="margin:24px 0 0">Your engines</div><table><thead><tr><th>Engine</th><th>Uses what you have</th><th>Hours to win a customer</th><th>Income</th></tr></thead><tbody>' +
+        engines.map((e) => '<tr><td class="b">' + T.esc(e.name) + '</td><td>' + ({ yes: 'Yes', partly: 'Partly', no: 'No' })[e.uses] + '</td><td>' + (e.hours === null ? 'unknown' : e.hours) + '</td><td>' + (e.type === 'steady' ? 'Steady' : 'Lumpy') + '</td></tr>').join('') + '</tbody></table>' +
+        '<p>' + (steady.length
+          ? 'Condition 1 needs income that arrives every month, so it\'s mostly the job of your steady engines (' + steady.map((e) => T.esc(e.name)).join(', ') + '). Treat lumpy ones as upside: if they pay, you leave sooner.'
+          : '<strong>Every engine you listed is lumpy.</strong> Lumpy income is fine as upside but can\'t reliably clear twelve months of bills. Finding one steady engine is the first problem to solve.') + '</p>' +
+        (engines.some((e) => e.hours !== null && e.hours >= 10) ? '<p>Watch the hours. If winning one customer takes more hours than that customer is worth, working harder only makes the loss bigger.</p>' : '');
+      et = '\n\nENGINES\n' + engines.map((e) => '- ' + e.name + ': uses what I have: ' + e.uses + '; hours to win a customer: ' + (e.hours === null ? 'unknown' : e.hours) + '; ' + e.type).join('\n');
+    }
+    $('rEngines').innerHTML = eh;
+
+    lastText =
+      'MY BILLS NUMBER\n' +
+      'Monthly spending ' + T.fmt(spend) + ' + health on my own ' + T.fmt(health) + ' = ' + T.fmt(monthly) + '/mo\n' +
+      'Grossed up for ' + tax + '% tax: ' + T.fmt(billsYear) + ' a year (' + T.fmt(needMo) + '/mo before tax)\n\n' +
+      'THE THREE CONDITIONS (' + score + ' of 3 met)\n' +
+      '1. Twelve months of side income covers my bills: ' + (c1 ? 'MET' : 'not yet') + ' (' + T.fmt(t12) + ' of ' + T.fmt(billsYear) + ')\n' +
+      '2. ' + rmonths + ' months in reserve: ' + (c2 ? 'MET' : 'not yet') + ' (' + T.fmt(reserve) + ' of ' + T.fmt(reserveTarget) + ')\n' +
+      '3. Health coverage arranged: ' + (c3 ? 'MET' : 'not yet') + '\n\n' +
+      (c1 ? '' : 'Gap on condition 1: ' + T.fmt(needMo - haveMo) + ' a month\n') +
+      et +
+      '\n\nThe rule: leave when all three are true at once. Not before, and not on a feeling.';
+  }
+
+  T.wireKeep($('keep'), () => lastText, 'My Way Out: the three conditions');
+  $('go').addEventListener('click', run);
+  $('example').addEventListener('click', () => {
+    $('spend').value = 4600; $('health').value = 550; $('tax').value = 27; $('rmonths').value = '6';
+    $('t12').value = 31000; $('reserve').value = 18500; $('covered').checked = false;
+    tbody.innerHTML = '';
+    addRow(['Bookkeeping clients (retainer)', 'yes', 6, 'steady']);
+    addRow(['Freelance projects', 'partly', 12, 'lumpy']);
+    run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('clear').addEventListener('click', () => {
+    ['spend', 'health'].forEach((id) => { $(id).value = ''; }); $('tax').value = 27; $('rmonths').value = '6';
+    $('t12').value = 0; $('reserve').value = 0; $('covered').checked = false;
+    tbody.innerHTML = ''; addRow(); $('result').classList.remove('show');
+  });
+})();
+</script>
+</main>
+<footer>
+<div class="foot-links"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a><a href="/formation/">Formation</a></div>
+<p class="made">Written by Stephen Dugger with help from Claude, an AI model. Every claim on this site is his and was checked by him.</p>
+<div class="copy">STEPHENDUGGER.COM &nbsp;◎&nbsp; ALL DEMONSTRATIONS, ONE SOURCE &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>{const o=l.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+</body>
+</html>

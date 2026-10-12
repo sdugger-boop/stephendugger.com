@@ -1,0 +1,234 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>True Cost of Borrowing | Stephen Dugger</title>
+<meta name="description" content="Before you finance it: the real price, the interest, the trap in 0% promo deals, and how many hours of your work it costs. Nothing you enter leaves your browser.">
+<link rel="canonical" href="https://stephendugger.com/tools/true-cost/">
+<meta property="og:site_name" content="Stephen Dugger">
+<meta property="og:title" content="True Cost of Borrowing | Stephen Dugger">
+<meta property="og:description" content="Before you finance it: the real price, the interest, the trap in 0% promo deals, and how many hours of your work it costs. Nothing you enter leaves your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stephendugger.com/tools/true-cost/">
+<meta property="og:image" content="https://stephendugger.com/assets/card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<nav><div class="nav-inner">
+<a class="nav-mark" href="/"><span class="dot"></span> STEPHEN DUGGER</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<div class="nav-links" id="navLinks"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a></div>
+</div></nav>
+<main>
+<link rel="stylesheet" href="/assets/tools.css">
+
+<div class="page-head"><div class="wrap narrow">
+  <div class="eyebrow">Tool · True Cost of Borrowing</div>
+  <h1>The sticker price is a suggestion.<br><em>The loan is the real price.</em></h1>
+  <p class="sub">The Interest Kill List gets rid of debt you already have. This one is for the moment before the next one: the car, the couch, the "0% for 18 months" at the register. Put in the deal and see what it really costs, in dollars and in hours of your life.</p>
+</div></div>
+
+<section><div class="wrap narrow prose">
+  <div class="note">Nothing you type here is saved or sent anywhere. The math runs in your browser, and closing the page erases it.</div>
+
+  <div class="calc">
+    <div class="fields">
+      <div class="field full">
+        <label for="mode">What kind of deal</label>
+        <select id="mode">
+          <option value="loan">A regular loan (car, personal loan, financing at a set rate)</option>
+          <option value="promo">A 0% promo, then a regular rate (store cards, "no interest if paid in full")</option>
+        </select>
+      </div>
+      <div class="field">
+        <label for="price">Price</label>
+        <input type="number" id="price" min="0" step="10">
+      </div>
+      <div class="field">
+        <label for="down">Down payment or trade-in</label>
+        <input type="number" id="down" min="0" step="10" value="0">
+      </div>
+      <div class="field">
+        <label for="apr" id="aprLabel">Interest rate (APR %)</label>
+        <input type="number" id="apr" min="0" step="0.1">
+      </div>
+      <div class="field" id="termField">
+        <label for="term">Term (months)</label>
+        <input type="number" id="term" min="1" step="1" value="60">
+        <small>72 and 84 months are common on cars now. Longer means a smaller payment and more interest.</small>
+      </div>
+      <div class="field promo" style="display:none">
+        <label for="promoMonths">Promo length (months at 0%)</label>
+        <input type="number" id="promoMonths" min="1" step="1" value="12">
+      </div>
+      <div class="field promo" style="display:none">
+        <label for="pay">What you plan to pay each month</label>
+        <input type="number" id="pay" min="0" step="10">
+      </div>
+      <div class="field full promo" style="display:none">
+        <label class="check"><input type="checkbox" id="deferred" checked> <span>"Deferred interest": if any balance is left when the promo ends, interest is charged back to the day you bought it. Most store cards work this way. Check the fine print for the words "deferred interest" or "if paid in full."</span></label>
+      </div>
+      <div class="field full">
+        <label for="hourly">Your take-home pay per hour</label>
+        <input type="number" id="hourly" min="0" step="0.5">
+        <small>Monthly take-home pay divided by the hours you work in a month (about 173 for full time). Optional, but it's the number that makes this real.</small>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn solid" id="go" type="button">Show the true cost</button>
+      <button class="btn" id="exCar" type="button">Example: a car</button>
+      <button class="btn" id="exPromo" type="button">Example: a 0% promo</button>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="big">
+      <div><div class="n gold" id="rReal">$0</div><div class="l">What it really costs</div></div>
+      <div><div class="n" id="rInt">$0</div><div class="l">Interest</div></div>
+    </div>
+    <p id="r1"></p>
+    <p id="r2"></p>
+    <p id="r3"></p>
+    <p id="r4"></p>
+    <div id="rWarn"></div>
+    <div class="keep no-print" id="keep"></div>
+  </div>
+
+  <p class="small" style="margin-top:34px">How it works: interest is charged monthly on what you still owe, the standard way loans are calculated. Real offers can add fees, insurance or add-ons rolled into the loan; put the full amount financed in the price if they do. Education, not financial advice.</p>
+
+  <div class="nexttool">
+    <div class="label">Next tool</div>
+    <p><a class="inline" href="/tools/reserve-builder/">Reserve Builder</a>: so the next big expense is paid in cash and this tool never has to come out.</p>
+  </div>
+</div></section>
+
+<script src="/assets/tools.js"></script>
+<script>
+(function () {
+  const T = window.Tools, $ = (id) => document.getElementById(id);
+
+  function setMode() {
+    const promo = $('mode').value === 'promo';
+    document.querySelectorAll('.field.promo').forEach((el) => { el.style.display = promo ? '' : 'none'; });
+    $('termField').style.display = promo ? 'none' : '';
+    $('aprLabel').textContent = promo ? 'Rate after the promo ends (APR %)' : 'Interest rate (APR %)';
+  }
+  $('mode').addEventListener('change', setMode);
+
+  const payment = (amt, apr, n) => {
+    const r = apr / 1200;
+    return r === 0 ? amt / n : amt * r / (1 - Math.pow(1 + r, -n));
+  };
+
+  // Promo: 0% for promoMonths (interest tracked in a deferred bucket), then the APR on what's left.
+  function promoSim(amt, apr, promoMonths, pay, deferred) {
+    let bal = amt, bucket = 0, m = 0, interest = 0;
+    const r = apr / 1200;
+    while (bal > 0.005 && m < promoMonths) { m++; bucket += bal * r; bal -= Math.min(pay, bal); }
+    if (bal <= 0.005) return { months: m, interest: 0, cleared: true, leftAtEnd: 0, charged: 0 };
+    const leftAtEnd = bal;
+    const charged = deferred ? bucket : 0;
+    bal += charged; interest += charged;
+    if (pay <= bal * r) return { months: null, interest: null, cleared: false, leftAtEnd, charged };
+    while (bal > 0.005 && m < 600) { m++; const i = bal * r; bal += i; interest += i; bal -= Math.min(pay, bal); }
+    return { months: m, interest, cleared: false, leftAtEnd, charged };
+  }
+
+  let lastText = '';
+  function run() {
+    const price = T.pos('price'), down = Math.min(T.pos('down'), price), amt = price - down;
+    const apr = T.pos('apr'), hourly = T.pos('hourly');
+    const hours = (x) => (hourly > 0 ? Math.round(x / hourly).toLocaleString('en-US') + ' hours' : null);
+    $('result').classList.add('show');
+    $('rWarn').innerHTML = '';
+    ['r1', 'r2', 'r3', 'r4'].forEach((id) => { $(id).innerHTML = ''; });
+    if (amt <= 0) { $('rReal').textContent = T.fmt(price); $('rInt').textContent = '$0'; $('r1').textContent = 'Put in a price above your down payment to see the financing cost.'; return; }
+
+    if ($('mode').value === 'loan') {
+      const n = Math.max(1, Math.round(T.pos('term')) || 1);
+      const pmt = payment(amt, apr, n), total = pmt * n, interest = total - amt;
+      $('rReal').textContent = T.fmt(down + total);
+      $('rInt').textContent = T.fmt(interest);
+      $('r1').innerHTML = 'Payment: <strong>' + T.fmt(pmt) + ' a month for ' + n + ' months</strong>. You pay <strong>' + T.fmt(total) + '</strong> for ' + T.fmt(amt) + ' of financing: <strong>' + Math.round(interest / amt * 100) + '% more</strong> than the price.';
+      const short = n > 36 ? Math.max(12, n - 24) : null;
+      if (short) {
+        const p2 = payment(amt, apr, short), i2 = p2 * short - amt;
+        $('r2').innerHTML = 'At ' + short + ' months instead, the payment is ' + T.fmt(p2) + ' and the interest drops to <strong>' + T.fmt(i2) + '</strong>, saving <strong>' + T.fmt(interest - i2) + '</strong>. The longer term only makes the payment feel smaller.';
+      }
+      const saveMonths = Math.ceil(amt / pmt);
+      $('r3').innerHTML = 'Or the other way round: put the same ' + T.fmt(pmt) + ' a month aside first, and you could pay cash in about <strong>' + saveMonths + ' months</strong> instead of owing for ' + n + '.';
+      if (hourly > 0) $('r4').innerHTML = 'At ' + T.fmt(hourly) + ' an hour take-home, the interest alone costs you <strong>' + hours(interest) + ' of work</strong>. The whole purchase is <strong>' + hours(down + total) + '</strong>.';
+      lastText = 'THE DEAL\nPrice ' + T.fmt(price) + ', down ' + T.fmt(down) + ', financed ' + T.fmt(amt) + ' at ' + apr + '% for ' + n + ' months\n\n' +
+        'Payment: ' + T.fmt(pmt) + '/mo\nTotal of payments: ' + T.fmt(total) + '\nInterest: ' + T.fmt(interest) + '\nWhat it really costs: ' + T.fmt(down + total) + '\n' +
+        (hourly > 0 ? 'Hours of work for the interest: ' + hours(interest) + '\nHours of work for the purchase: ' + hours(down + total) + '\n' : '') +
+        '\nPaying cash instead: save ' + T.fmt(pmt) + '/mo for about ' + saveMonths + ' months.';
+    } else {
+      const promoMonths = Math.max(1, Math.round(T.pos('promoMonths')) || 1), pay = T.pos('pay'), deferred = $('deferred').checked;
+      const need = amt / promoMonths;
+      if (pay <= 0) { $('rReal').textContent = T.fmt(price); $('rInt').textContent = '?'; $('r1').innerHTML = 'To clear it before the promo ends, you need <strong>' + T.fmt(need) + ' a month</strong>. Put in what you plan to pay to see what happens if you don\'t.'; return; }
+      const sim = promoSim(amt, apr, promoMonths, pay, deferred);
+      if (sim.cleared) {
+        $('rReal').textContent = T.fmt(price); $('rInt').textContent = '$0';
+        $('r1').innerHTML = 'At <strong>' + T.fmt(pay) + ' a month</strong> you clear it in ' + sim.months + ' months, inside the promo. <strong>No interest.</strong> This is the one way these deals are actually free.';
+        $('r2').innerHTML = 'The margin: you need at least ' + T.fmt(need) + ' a month. Miss one payment or come up short at the end and the math below applies.';
+        const worse = promoSim(amt, apr, promoMonths, need * 0.9, deferred);
+        if (deferred && worse.charged > 0) $('r3').innerHTML = 'For comparison: paying 10% less (' + T.fmt(need * 0.9) + ' a month) leaves ' + T.fmt(worse.leftAtEnd) + ' at the end, and deferred interest then charges <strong>' + T.fmt(worse.charged) + '</strong> in one hit.';
+      } else {
+        $('rReal').textContent = sim.interest === null ? 'Never paid off' : T.fmt(price + sim.interest);
+        $('rInt').textContent = sim.interest === null ? 'Endless' : T.fmt(sim.interest);
+        $('r1').innerHTML = 'At ' + T.fmt(pay) + ' a month, <strong>' + T.fmt(sim.leftAtEnd) + ' is still owed</strong> when the promo ends. To clear it in time you\'d need <strong>' + T.fmt(need) + ' a month</strong>.';
+        $('r2').innerHTML = deferred
+          ? 'Because it\'s deferred interest, the interest from day one comes due at once: <strong>' + T.fmt(sim.charged) + '</strong> added to the balance on the day the promo ends. The "0%" was a loan at ' + apr + '% the whole time, unless you won the bet.'
+          : 'The remaining balance starts charging ' + apr + '% from the day the promo ends.';
+        if (sim.interest === null) $('rWarn').innerHTML = '<div class="warn">At this payment, the interest after the promo is more than you\'re paying each month. The balance would grow forever.</div>';
+        else $('r3').innerHTML = 'Paying ' + T.fmt(pay) + ' a month, you\'re done in <strong>' + sim.months + ' months</strong> with <strong>' + T.fmt(sim.interest) + '</strong> in interest on a "0%" deal.';
+      }
+      if (hourly > 0 && !sim.cleared && sim.interest) $('r4').innerHTML = 'At ' + T.fmt(hourly) + ' an hour take-home, that interest is <strong>' + hours(sim.interest) + ' of work</strong> for nothing.';
+      lastText = 'THE DEAL\nPrice ' + T.fmt(price) + ', down ' + T.fmt(down) + ', financed ' + T.fmt(amt) + '\n0% for ' + promoMonths + ' months, then ' + apr + '%' + (deferred ? ' (deferred interest)' : '') + '\n\n' +
+        'Needed to clear it inside the promo: ' + T.fmt(need) + '/mo\nI plan to pay: ' + T.fmt(pay) + '/mo\n' +
+        (sim.cleared ? 'Result: cleared in ' + sim.months + ' months, no interest.\n'
+          : 'Result: ' + T.fmt(sim.leftAtEnd) + ' left at promo end' + (deferred ? ', ' + T.fmt(sim.charged) + ' of deferred interest charged at once' : '') + '\nTotal interest: ' + (sim.interest === null ? 'never paid off at this payment' : T.fmt(sim.interest)) + '\n');
+    }
+  }
+
+  T.wireKeep($('keep'), () => lastText, 'The true cost of this deal');
+  $('go').addEventListener('click', run);
+  $('exCar').addEventListener('click', () => {
+    $('mode').value = 'loan'; setMode();
+    $('price').value = 48900; $('down').value = 5000; $('apr').value = 6.9; $('term').value = 72; $('hourly').value = 28; run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('exPromo').addEventListener('click', () => {
+    $('mode').value = 'promo'; setMode();
+    $('price').value = 2400; $('down').value = 0; $('apr').value = 29.99; $('promoMonths').value = 12; $('pay').value = 150; $('deferred').checked = true; $('hourly').value = 28; run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('clear').addEventListener('click', () => {
+    ['price', 'apr', 'pay', 'hourly'].forEach((id) => { $(id).value = ''; }); $('down').value = 0; $('term').value = 60; $('promoMonths').value = 12;
+    $('mode').value = 'loan'; setMode(); $('result').classList.remove('show');
+  });
+})();
+</script>
+</main>
+<footer>
+<div class="foot-links"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a><a href="/formation/">Formation</a></div>
+<p class="made">Written by Stephen Dugger with help from Claude, an AI model. Every claim on this site is his and was checked by him.</p>
+<div class="copy">STEPHENDUGGER.COM &nbsp;◎&nbsp; ALL DEMONSTRATIONS, ONE SOURCE &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>{const o=l.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+</body>
+</html>

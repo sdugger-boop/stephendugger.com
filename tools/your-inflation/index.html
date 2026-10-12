@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Your Inflation | Stephen Dugger</title>
+<meta name="description" content="The official inflation number measures an average basket and leaves out the cost of borrowing. Measure your own, including every dollar of interest. Nothing you enter leaves your browser.">
+<link rel="canonical" href="https://stephendugger.com/tools/your-inflation/">
+<meta property="og:site_name" content="Stephen Dugger">
+<meta property="og:title" content="Your Inflation | Stephen Dugger">
+<meta property="og:description" content="The official inflation number measures an average basket and leaves out the cost of borrowing. Measure your own, including every dollar of interest. Nothing you enter leaves your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stephendugger.com/tools/your-inflation/">
+<meta property="og:image" content="https://stephendugger.com/assets/card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<nav><div class="nav-inner">
+<a class="nav-mark" href="/"><span class="dot"></span> STEPHEN DUGGER</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<div class="nav-links" id="navLinks"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a></div>
+</div></nav>
+<main>
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+  .calc { margin-top: 8px; }
+  .calc table { width: 100%; border-collapse: collapse; font-size: 15px; }
+  .calc th { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--faint); font-weight: 400; text-align: right; padding: 0 0 10px; }
+  .calc th:first-child { text-align: left; }
+  .calc td { padding: 7px 0; border-top: 1px solid var(--line); vertical-align: middle; }
+  .calc td.cat { padding-right: 12px; }
+  .calc td.cat small { display: block; color: var(--faint); font-size: 12px; line-height: 1.4; }
+  .calc .money { position: relative; width: 120px; margin-left: auto; }
+  .calc .money span { position: absolute; left: 10px; top: 50%; transform: translateY(-50%); color: var(--faint); font-size: 14px; }
+  .calc input[type=number] { width: 120px; background: var(--charcoal); border: 1px solid var(--line); color: var(--bone); border-radius: 3px; padding: 9px 10px 9px 22px; font: inherit; font-size: 15px; text-align: right; }
+  .calc input:focus { outline: none; border-color: var(--gold); }
+  .calc td.num { text-align: right; padding-left: 10px; }
+  .calc .tag { display: inline-block; font-family: 'JetBrains Mono', monospace; font-size: 10px; letter-spacing: 0.1em; color: var(--gold); border: 1px solid rgba(184,150,12,0.45); border-radius: 2px; padding: 1px 5px; margin-left: 6px; vertical-align: 2px; }
+  .calc .row-total td { font-weight: 600; border-top: 1px solid rgba(245,240,232,0.25); }
+  .calc .cpi { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; margin: 26px 0 8px; font-size: 15px; color: var(--muted); }
+  .calc .cpi input { width: 90px; padding-left: 10px; }
+  .calc .buttons { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+  .calc button.btn { background: none; cursor: pointer; }
+  .calc button.btn.solid { background: var(--gold); }
+  .result { margin-top: 34px; border: 1px solid rgba(184,150,12,0.45); border-radius: 4px; padding: 28px 26px; background: var(--charcoal); display: none; }
+  .result.show { display: block; }
+  .result .big { display: flex; gap: 28px; flex-wrap: wrap; margin-bottom: 18px; }
+  .result .big div { flex: 1 1 180px; }
+  .result .big .n { font-family: 'Cormorant Garamond', Georgia, serif; font-size: 52px; line-height: 1; }
+  .result .big .n.you { color: var(--gold); }
+  .result .big .l { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.14em; text-transform: uppercase; color: var(--faint); margin-top: 8px; }
+  .result p { color: var(--muted); font-size: 16px; margin-top: 12px; }
+  .result p strong { color: var(--bone); }
+  .bars { margin-top: 20px; }
+  .bar { display: grid; grid-template-columns: 170px 1fr 90px; gap: 10px; align-items: center; font-size: 14px; margin: 6px 0; }
+  .bar .track { height: 8px; background: var(--line); border-radius: 4px; position: relative; overflow: hidden; }
+  .bar .fill { position: absolute; top: 0; bottom: 0; background: var(--gold); border-radius: 4px; }
+  .bar .fill.neg { background: var(--slate); }
+  .bar .v { text-align: right; color: var(--muted); font-family: 'JetBrains Mono', monospace; font-size: 12px; }
+  @media (max-width: 600px) {
+    .calc .money, .calc input[type=number] { width: 96px; }
+    .bar { grid-template-columns: 110px 1fr 70px; }
+    .result .big .n { font-size: 42px; }
+  }
+</style>
+
+<div class="page-head"><div class="wrap narrow">
+  <div class="eyebrow">Tool · Your Inflation</div>
+  <h1>Their inflation is an average.<br><em>Yours isn't.</em></h1>
+  <p class="sub">The official number measures an average basket, and since 1983 it has left out the cost of borrowing. Put in what you actually spend in a typical month, last year and this year, including every payment on every loan and card. You'll get your own inflation rate.</p>
+</div></div>
+
+<section><div class="wrap narrow prose">
+  <div class="note">Nothing you type here is saved or sent anywhere. The math runs in your browser, and closing the page erases it. The only thing the page loads is the latest official CPI figure, from this site.</div>
+
+  <div class="calc">
+    <table>
+      <thead><tr><th>Monthly spending</th><th>Last year</th><th>This year</th></tr></thead>
+      <tbody id="rows"></tbody>
+      <tfoot><tr class="row-total"><td class="cat">Total per month</td><td class="num" id="totLast">$0</td><td class="num" id="totNow">$0</td></tr></tfoot>
+    </table>
+
+    <div class="cpi">
+      <label for="cpi">Official inflation (CPI, last 12 months):</label>
+      <div class="money"><input type="number" id="cpi" step="0.1" value="3.4" style="padding-left:10px"></div>
+      <span>%</span>
+    </div>
+    <p class="small" id="cpiSource">Latest official figure, filled in automatically from the Bureau of Labor Statistics. You can change it.</p>
+    <p class="small">The rows marked <span class="tag">COST OF MONEY</span> are payments on borrowed money. The official index has counted none of that since 1983.</p>
+
+    <div class="buttons">
+      <button class="btn solid" id="go" type="button">Show my inflation</button>
+      <button class="btn" id="example" type="button">Try an example household</button>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="big">
+      <div><div class="n you" id="rYou">0%</div><div class="l">Your inflation</div></div>
+      <div><div class="n" id="rCpi">0%</div><div class="l">The official number</div></div>
+    </div>
+    <p id="rGap"></p>
+    <p id="rRaise"></p>
+    <p id="rMoney"></p>
+    <div class="bars" id="bars"></div>
+    <p class="small" style="margin-top:20px">What to do with this number: the first thing to attack is usually the biggest bar marked as cost of money, because interest is the one cost of living you can stop paying. That's the <a class="inline" href="/tools/interest-kill-list/">Interest Kill List</a>.</p>
+    <div class="keep no-print" id="keep"></div>
+  </div>
+
+  <p class="small" style="margin-top:34px">A simple tool, honestly labeled: it compares your own spending month to month, so a new car or a new baby will show up as "inflation" even though it's really a change in how you live. Use typical months, and compare like with like where you can. Education, not financial advice.</p>
+  <div class="nexttool">
+    <div class="label">Next tool</div>
+    <p><a class="inline" href="/tools/interest-kill-list/">Interest Kill List</a>: the order to pay off what you owe, and the raise you give yourself when it's gone.</p>
+  </div>
+</div></section>
+
+<script src="/assets/tools.js"></script>
+<script>
+(function () {
+  const CATS = [
+    { id: 'rent', name: 'Rent', hint: 'If you rent' },
+    { id: 'mortgage', name: 'Mortgage payment', hint: 'Principal and interest, if you own', money: true },
+    { id: 'housing', name: 'Property tax, HOA, repairs', hint: 'If you own' },
+    { id: 'groceries', name: 'Groceries and household', hint: 'Food, supplies' },
+    { id: 'energy', name: 'Gas, electric, fuel', hint: 'Home and car' },
+    { id: 'insurance', name: 'Insurance', hint: 'Health, car, home' },
+    { id: 'car', name: 'Car payment', hint: 'Loan or lease', money: true },
+    { id: 'cards', name: 'Card and loan interest', hint: 'Interest and fees only, cards, personal and student loans', money: true },
+    { id: 'kids', name: 'Childcare and school', hint: '' },
+    { id: 'other', name: 'Everything else', hint: 'Phone, subscriptions, eating out' }
+  ];
+  // Example: the same renting household, same car loan, one year apart.
+  // Nothing about how they live changed; only prices and their card APR did.
+  const EXAMPLE = {
+    rent: [1850, 1990], groceries: [880, 940], energy: [430, 495], insurance: [610, 690],
+    car: [520, 520], cards: [95, 150], kids: [300, 320], other: [600, 625]
+  };
+  const $ = (id) => document.getElementById(id);
+  const fmt = (n) => '$' + Math.round(n).toLocaleString('en-US');
+  const pct = (n) => (n >= 0 ? '' : '−') + Math.abs(n).toFixed(1) + '%';
+
+  const tbody = $('rows');
+  CATS.forEach((c) => {
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td class="cat">' + c.name + (c.money ? '<span class="tag">COST OF MONEY</span>' : '') +
+      (c.hint ? '<small>' + c.hint + '</small>' : '') + '</td>' +
+      '<td><div class="money"><span>$</span><input type="number" min="0" step="1" inputmode="decimal" id="' + c.id + '_0" aria-label="' + c.name + ', last year"></div></td>' +
+      '<td class="num"><div class="money"><span>$</span><input type="number" min="0" step="1" inputmode="decimal" id="' + c.id + '_1" aria-label="' + c.name + ', this year"></div></td>';
+    tbody.appendChild(tr);
+  });
+
+  // Latest official CPI, written by update_cpi.py at build time and refreshed on the
+  // live site by a scheduled job. Same-origin, so nothing about the reader is sent anywhere.
+  fetch('/assets/cpi.json', { cache: 'no-cache' })
+    .then((r) => (r.ok ? r.json() : Promise.reject()))
+    .then((d) => {
+      if (typeof d.yoy !== 'number') return;
+      $('cpi').value = d.yoy.toFixed(1);
+      $('cpiSource').innerHTML = 'Latest official figure: <strong>' + d.label + '</strong>, ' + d.yoy.toFixed(1) +
+        '% over 12 months (BLS CPI-U, via <a class="inline" href="' + d.source_url + '">FRED</a>). Filled in automatically. You can change it.';
+      if ($('result').classList.contains('show')) run();
+    })
+    .catch(() => { $('cpiSource').textContent = 'Couldn\'t load the latest figure, so this shows the last one built into the page. You can change it.'; });
+
+  const val = (id) => { const v = parseFloat($(id).value); return isFinite(v) && v > 0 ? v : 0; };
+
+  function totals() {
+    let a = 0, b = 0;
+    CATS.forEach((c) => { a += val(c.id + '_0'); b += val(c.id + '_1'); });
+    $('totLast').textContent = fmt(a);
+    $('totNow').textContent = fmt(b);
+    return [a, b];
+  }
+
+  function run() {
+    const [last, now] = totals();
+    const cpi = parseFloat($('cpi').value) || 0;
+    if (last <= 0) {
+      $('result').classList.add('show');
+      $('rYou').textContent = 'n/a';
+      $('rCpi').textContent = pct(cpi);
+      $('rGap').innerHTML = 'Put in at least one amount for last year to compare against.';
+      $('rRaise').textContent = ''; $('rMoney').textContent = ''; $('bars').innerHTML = '';
+      return;
+    }
+    const you = (now - last) / last * 100;
+    const gap = you - cpi;
+    $('rYou').textContent = pct(you);
+    $('rCpi').textContent = pct(cpi);
+
+    if (Math.abs(gap) < 0.25) {
+      $('rGap').innerHTML = 'Your costs rose about as fast as the official number. <strong>For you, the CPI is roughly right.</strong>';
+    } else if (gap > 0) {
+      $('rGap').innerHTML = 'Your costs rose <strong>' + gap.toFixed(1) + ' points faster</strong> than the official number. That gap is <strong>' + fmt(now - last * (1 + cpi / 100)) + ' a month</strong>, about <strong>' + fmt((now - last * (1 + cpi / 100)) * 12) + ' a year</strong>, that the official figure says you aren\'t paying.';
+    } else {
+      $('rGap').innerHTML = 'Your costs rose <strong>' + Math.abs(gap).toFixed(1) + ' points slower</strong> than the official number. For now, you\'re ahead of it.';
+    }
+
+    $('rRaise').innerHTML = you > 0
+      ? 'To stand still, your take-home pay had to rise <strong>' + pct(you) + '</strong> this year. If your raise was smaller than that, you took a pay cut.'
+      : 'Your monthly costs went down. Any raise you got this year was a real one.';
+
+    let mLast = 0, mNow = 0;
+    CATS.filter((c) => c.money).forEach((c) => { mLast += val(c.id + '_0'); mNow += val(c.id + '_1'); });
+    const rise = now - last, mRise = mNow - mLast;
+    if (rise > 0 && mRise > 0) {
+      $('rMoney').innerHTML = '<strong>' + Math.round(mRise / rise * 100) + '% of your increase</strong> (' + fmt(mRise) + ' a month) came from payments on borrowed money. The official index counts none of it.';
+    } else if (mNow > 0) {
+      $('rMoney').innerHTML = 'You\'re paying <strong>' + fmt(mNow) + ' a month</strong> on borrowed money, about <strong>' + fmt(mNow * 12) + ' a year</strong>. The official index counts none of it.';
+    } else {
+      $('rMoney').textContent = '';
+    }
+
+    const changes = CATS.map((c) => ({ c, d: val(c.id + '_1') - val(c.id + '_0') })).filter((x) => x.d !== 0)
+      .sort((x, y) => Math.abs(y.d) - Math.abs(x.d));
+    const maxAbs = Math.max(1, ...changes.map((x) => Math.abs(x.d)));
+    $('bars').innerHTML = changes.length ? '<div class="label" style="margin:22px 0 10px">Where the change came from, per month</div>' +
+      changes.map((x) =>
+        '<div class="bar"><div>' + x.c.name + (x.c.money ? ' <span class="tag">$</span>' : '') + '</div>' +
+        '<div class="track"><div class="fill' + (x.d < 0 ? ' neg' : '') + '" style="left:0;width:' + (Math.abs(x.d) / maxAbs * 100).toFixed(1) + '%"></div></div>' +
+        '<div class="v">' + (x.d > 0 ? '+' : '−') + fmt(Math.abs(x.d)).replace('$', '$') + '</div></div>').join('') : '';
+
+    lastText =
+      'My inflation: ' + pct(you) + '  |  Official CPI: ' + pct(cpi) + '\n' +
+      'Monthly spending: ' + fmt(last) + ' last year, ' + fmt(now) + ' this year\n' +
+      (gap > 0.25 ? 'Gap vs the official number: ' + fmt(now - last * (1 + cpi / 100)) + ' a month, ' + fmt((now - last * (1 + cpi / 100)) * 12) + ' a year\n' : '') +
+      'Raise needed just to stand still: ' + pct(Math.max(0, you)) + '\n' +
+      'Paid on borrowed money each month: ' + fmt(mNow) + '\n\n' +
+      'BY CATEGORY (last year -> this year, per month)\n' +
+      CATS.filter((c) => val(c.id + '_0') || val(c.id + '_1')).map((c) => '- ' + c.name + (c.money ? ' [cost of money]' : '') + ': ' + fmt(val(c.id + '_0')) + ' -> ' + fmt(val(c.id + '_1'))).join('\n');
+    $('result').classList.add('show');
+  }
+
+  let lastText = '';
+  window.Tools.wireKeep($('keep'), () => lastText, 'My Inflation');
+
+  document.addEventListener('input', (e) => { if (e.target.matches('.calc input')) totals(); });
+  $('go').addEventListener('click', run);
+  $('example').addEventListener('click', () => {
+    CATS.forEach((c) => { const ex = EXAMPLE[c.id] || [0, 0]; $(c.id + '_0').value = ex[0] || ''; $(c.id + '_1').value = ex[1] || ''; });
+    run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('clear').addEventListener('click', () => {
+    CATS.forEach((c) => { $(c.id + '_0').value = ''; $(c.id + '_1').value = ''; });
+    totals(); $('result').classList.remove('show');
+  });
+})();
+</script>
+</main>
+<footer>
+<div class="foot-links"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a><a href="/formation/">Formation</a></div>
+<p class="made">Written by Stephen Dugger with help from Claude, an AI model. Every claim on this site is his and was checked by him.</p>
+<div class="copy">STEPHENDUGGER.COM &nbsp;◎&nbsp; ALL DEMONSTRATIONS, ONE SOURCE &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>{const o=l.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+</body>
+</html>

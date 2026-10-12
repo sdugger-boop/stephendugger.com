@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reserve Builder | Stephen Dugger</title>
+<meta name="description" content="Build a sinking fund for the big expenses you can see coming, then an emergency fund for the ones you can't. See your monthly plan and the date you're covered. Nothing you enter leaves your browser.">
+<link rel="canonical" href="https://stephendugger.com/tools/reserve-builder/">
+<meta property="og:site_name" content="Stephen Dugger">
+<meta property="og:title" content="Reserve Builder | Stephen Dugger">
+<meta property="og:description" content="Build a sinking fund for the big expenses you can see coming, then an emergency fund for the ones you can't. See your monthly plan and the date you're covered. Nothing you enter leaves your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stephendugger.com/tools/reserve-builder/">
+<meta property="og:image" content="https://stephendugger.com/assets/card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css">
+</head>
+<body>
+<nav><div class="nav-inner">
+<a class="nav-mark" href="/"><span class="dot"></span> STEPHEN DUGGER</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<div class="nav-links" id="navLinks"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a></div>
+</div></nav>
+<main>
+<link rel="stylesheet" href="/assets/tools.css">
+
+<div class="page-head"><div class="wrap narrow">
+  <div class="eyebrow">Tool · Reserve Builder</div>
+  <h1>A reserve is what keeps<br><em>one bad month from becoming debt.</em></h1>
+  <p class="sub">Two funds, in order. First a <strong>sinking fund</strong> for the big expenses you can see coming: registration, insurance premiums, tires, the holidays. Then an <strong>emergency fund</strong> for the ones you can't. The sinking fund comes first because otherwise every planned expense raids the emergency fund, and it never fills.</p>
+</div></div>
+
+<section><div class="wrap narrow prose">
+  <div class="note">Nothing you type here is saved or sent anywhere. The math runs in your browser, and closing the page erases it.</div>
+
+  <div class="calc">
+    <div class="sublabel">1 · Sinking fund: the expenses you can see coming</div>
+    <table>
+      <thead><tr><th style="width:44%">Expense</th><th class="r">Cost</th><th class="r">Every (months)</th><th></th></tr></thead>
+      <tbody id="items"></tbody>
+    </table>
+    <button class="btn addrow" type="button" id="add">+ Add an expense</button>
+
+    <div class="sublabel">2 · Emergency fund: the ones you can't</div>
+    <div class="fields">
+      <div class="field">
+        <label for="essentials">Essential monthly expenses</label>
+        <input type="number" id="essentials" min="0" step="10">
+        <small>Housing, food, utilities, insurance, minimum debt payments, transportation. What you'd still owe if your paycheck stopped.</small>
+      </div>
+      <div class="field">
+        <label for="months">Months to cover</label>
+        <select id="months"><option>3</option><option selected>6</option><option>9</option><option>12</option></select>
+        <small>Six is the standard. More if your income is irregular or you're the only earner.</small>
+      </div>
+      <div class="field">
+        <label for="have">Already saved for emergencies</label>
+        <input type="number" id="have" min="0" step="10" value="0">
+      </div>
+      <div class="field">
+        <label for="save">What you can save each month, total</label>
+        <input type="number" id="save" min="0" step="10">
+        <small>The sinking fund takes its share first. The rest builds the emergency fund.</small>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn solid" id="go" type="button">Build my reserve plan</button>
+      <button class="btn" id="example" type="button">Try an example</button>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="big">
+      <div><div class="n" id="rRunway">0</div><div class="l">Months you could last today</div></div>
+      <div><div class="n gold" id="rDate">n/a</div><div class="l">Emergency fund full</div></div>
+    </div>
+    <p id="rPlan"></p>
+    <p id="rSink"></p>
+    <p id="rEf"></p>
+    <div id="rWarn"></div>
+    <div class="label" style="margin:24px 0 0">Your sinking fund, per month</div>
+    <table><thead><tr><th>Expense</th><th>Cost</th><th>Every</th><th>Set aside / mo</th></tr></thead><tbody id="rItems"></tbody></table>
+    <div class="keep no-print" id="keep"></div>
+  </div>
+
+  <p class="small" style="margin-top:34px">Keep both funds in cash you can reach in a day or two, separate from your everyday account so they don't get spent by accident. When a sinking-fund expense comes due, pay it from the sinking fund and keep the monthly set-aside going. Education, not financial advice.</p>
+
+  <div class="nexttool">
+    <div class="label">Next tool</div>
+    <p><a class="inline" href="/tools/the-way-out/">The Way Out</a>: the three conditions for leaving a paycheck, and where you stand on each.</p>
+  </div>
+</div></section>
+
+<script src="/assets/tools.js"></script>
+<script>
+(function () {
+  const T = window.Tools, $ = (id) => document.getElementById(id);
+  const tbody = $('items');
+  const STARTERS = [
+    ['Car registration', '', 12], ['Car insurance premium', '', 6], ['Holidays and birthdays', '', 12],
+    ['Tires and car repairs', '', 24], ['Home and appliance repairs', '', 24], ['Medical or vet deductible', '', 12]
+  ];
+  const EXAMPLE = [
+    ['Car registration', 450, 12], ['Car insurance premium', 900, 6], ['Holidays and birthdays', 1500, 12],
+    ['Tires and car repairs', 1200, 24], ['Home and appliance repairs', 1500, 24], ['Medical or vet deductible', 1000, 12]
+  ];
+
+  function addRow(d) {
+    d = d || ['', '', 12];
+    const tr = document.createElement('tr');
+    tr.innerHTML =
+      '<td><input type="text" placeholder="e.g. Tires" aria-label="Expense" value="' + T.esc(d[0]) + '"></td>' +
+      '<td><input type="number" min="0" step="10" aria-label="Cost" value="' + d[1] + '"></td>' +
+      '<td><input type="number" min="1" step="1" aria-label="Every how many months" value="' + d[2] + '"></td>' +
+      '<td><button class="del" type="button" aria-label="Remove">×</button></td>';
+    tr.querySelector('.del').addEventListener('click', () => { tr.remove(); if (!tbody.children.length) addRow(); });
+    tbody.appendChild(tr);
+  }
+  STARTERS.forEach(addRow);
+  $('add').addEventListener('click', () => addRow());
+
+  let lastText = '';
+  function run() {
+    const items = [...tbody.children].map((tr) => {
+      const f = tr.querySelectorAll('input');
+      const cost = T.pos(f[1]), every = Math.max(1, T.pos(f[2]) || 1);
+      return { name: f[0].value.trim() || 'Expense', cost, every, monthly: cost / every };
+    }).filter((x) => x.cost > 0);
+    const sinkNeed = items.reduce((s, x) => s + x.monthly, 0);
+    const essentials = T.pos('essentials'), months = parseInt($('months').value, 10), have = T.pos('have'), save = T.pos('save');
+    const target = essentials * months, gap = Math.max(0, target - have);
+    const toEf = Math.max(0, save - sinkNeed);
+    const toSink = Math.min(save, sinkNeed);
+    const runway = essentials > 0 ? have / essentials : 0;
+    const monthsToFull = gap === 0 ? 0 : (toEf > 0 ? Math.ceil(gap / toEf) : null);
+
+    $('result').classList.add('show');
+    $('rRunway').textContent = essentials > 0 ? runway.toFixed(1) : 'n/a';
+    $('rDate').textContent = essentials <= 0 ? 'n/a' : (gap === 0 ? 'Covered' : (monthsToFull === null ? 'Not yet' : T.monthLabel(monthsToFull)));
+
+    $('rPlan').innerHTML = save > 0
+      ? 'Each month: <strong>' + T.fmt(toSink) + '</strong> to the sinking fund, then <strong>' + T.fmt(toEf) + '</strong> to the emergency fund.'
+      : 'Put in what you can save each month to get a plan.';
+    $('rSink').innerHTML = items.length
+      ? 'Your sinking fund needs <strong>' + T.fmt(sinkNeed) + ' a month</strong> (' + T.fmt(sinkNeed * 12) + ' a year) so those ' + items.length + ' expenses are paid in cash when they land.'
+      : 'No planned expenses entered. Most households have at least a few: registration, premiums, the holidays.';
+    $('rEf').innerHTML = essentials > 0
+      ? (gap === 0 ? 'Your emergency fund already covers <strong>' + months + ' months</strong>. Keep it there, and point new savings at the next goal.'
+        : 'Your emergency fund target is <strong>' + T.fmt(target) + '</strong> (' + months + ' months of essentials). You have ' + T.fmt(have) + ', so <strong>' + T.fmt(gap) + ' to go</strong>' +
+          (monthsToFull ? ', about <strong>' + monthsToFull + ' months</strong> at this pace.' : '.'))
+      : 'Put in your essential monthly expenses to size the emergency fund.';
+
+    $('rWarn').innerHTML = (save > 0 && save < sinkNeed)
+      ? '<div class="warn">Your planned expenses need ' + T.fmt(sinkNeed) + ' a month, and you can save ' + T.fmt(save) + '. The ' + T.fmt(sinkNeed - save) + ' gap means some of those bills will land on a card or on the emergency fund. Trimming one planned expense, or stretching it out, closes the gap.</div>'
+      : '';
+
+    $('rItems').innerHTML = items.map((x) => '<tr><td class="b">' + T.esc(x.name) + '</td><td>' + T.fmt(x.cost) + '</td><td>' + x.every + ' mo</td><td class="b">' + T.fmt(x.monthly) + '</td></tr>').join('');
+
+    lastText =
+      'MONTHLY PLAN\n' +
+      'Save each month: ' + T.fmt(save) + '\n' +
+      '  1. Sinking fund: ' + T.fmt(toSink) + '\n' +
+      '  2. Emergency fund: ' + T.fmt(toEf) + '\n\n' +
+      'SINKING FUND (' + T.fmt(sinkNeed) + '/mo)\n' + items.map((x) => '- ' + x.name + ': ' + T.fmt(x.cost) + ' every ' + x.every + ' mo = ' + T.fmt(x.monthly) + '/mo').join('\n') + '\n\n' +
+      'EMERGENCY FUND\n' +
+      'Target: ' + T.fmt(target) + ' (' + months + ' months of ' + T.fmt(essentials) + ')\n' +
+      'Saved: ' + T.fmt(have) + '  |  To go: ' + T.fmt(gap) + '\n' +
+      'Full by: ' + (essentials <= 0 ? 'n/a' : gap === 0 ? 'already covered' : monthsToFull ? T.monthLabel(monthsToFull) : 'not on this plan') + '\n' +
+      'Months you could last today: ' + (essentials > 0 ? runway.toFixed(1) : 'n/a') + '\n\n' +
+      'Rule: sinking fund first, so planned expenses never raid the emergency fund.';
+  }
+
+  T.wireKeep($('keep'), () => lastText, 'My Reserve Plan');
+  $('go').addEventListener('click', run);
+  $('example').addEventListener('click', () => {
+    tbody.innerHTML = ''; EXAMPLE.forEach(addRow);
+    $('essentials').value = 4200; $('months').value = '6'; $('have').value = 3500; $('save').value = 900; run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('clear').addEventListener('click', () => {
+    tbody.innerHTML = ''; STARTERS.forEach(addRow);
+    ['essentials', 'save'].forEach((id) => { $(id).value = ''; }); $('have').value = 0; $('months').value = '6';
+    $('result').classList.remove('show');
+  });
+})();
+</script>
+</main>
+<footer>
+<div class="foot-links"><a href="/business/">Business</a><a href="/coaching/">Coaching</a><a href="/trading/">Trading</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/tools/" class="active">Tools</a><a href="/about/">About</a><a href="/formation/">Formation</a></div>
+<p class="made">Written by Stephen Dugger with help from Claude, an AI model. Every claim on this site is his and was checked by him.</p>
+<div class="copy">STEPHENDUGGER.COM &nbsp;◎&nbsp; ALL DEMONSTRATIONS, ONE SOURCE &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>{const o=l.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+</body>
+</html>

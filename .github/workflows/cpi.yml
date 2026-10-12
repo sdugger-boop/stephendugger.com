@@ -1,0 +1,21 @@
+name: Refresh CPI and lender rates
+on:
+  schedule:
+    - cron: "0 15 * * *"   # daily 15:00 UTC; BLS releases CPI at 8:30 ET, mid-month
+  workflow_dispatch: {}
+permissions:
+  contents: write
+jobs:
+  cpi:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: python3 .github/scripts/update_cpi.py assets/cpi.json || true
+      - run: python3 .github/scripts/update_rates.py assets/lenders.json assets/rates.json || true
+      - run: |
+          if ! git diff --quiet; then
+            git config user.name "cpi-bot"
+            git config user.email "cpi-bot@users.noreply.github.com"
+            git commit -am "CPI and rates refresh $(date -u +%Y-%m-%d)"
+            git push
+          fi

@@ -1,0 +1,123 @@
+{
+  "benchmarks": {
+    "EFFR": {
+      "value": 3.88,
+      "date": "2026-10-08"
+    },
+    "SOFR": {
+      "value": 3.87,
+      "date": "2026-10-08"
+    }
+  },
+  "products": [
+    {
+      "id": "ibkr-pro-100k",
+      "firm": "Interactive Brokers",
+      "product": "IBKR Pro margin, first $100k",
+      "type": "benchmark",
+      "source_url": "https://www.interactivebrokers.com/en/trading/margin-rates.php",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Benchmark is the US fed funds effective rate. Blended by tier.",
+      "rate": 5.38,
+      "benchmark": "EFFR",
+      "benchmark_value": 3.88,
+      "benchmark_date": "2026-10-08",
+      "spread": 1.5
+    },
+    {
+      "id": "ibkr-pro-1m",
+      "firm": "Interactive Brokers",
+      "product": "IBKR Pro margin, $100k to $1M",
+      "type": "benchmark",
+      "source_url": "https://www.interactivebrokers.com/en/trading/margin-rates.php",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Blended: the first $100k is charged at the higher tier.",
+      "rate": 4.88,
+      "benchmark": "EFFR",
+      "benchmark_value": 3.88,
+      "benchmark_date": "2026-10-08",
+      "spread": 1.0
+    },
+    {
+      "id": "ibkr-pro-50m",
+      "firm": "Interactive Brokers",
+      "product": "IBKR Pro margin, $1M to $50M",
+      "type": "benchmark",
+      "source_url": "https://www.interactivebrokers.com/en/trading/margin-rates.php",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Blended by tier.",
+      "rate": 4.63,
+      "benchmark": "EFFR",
+      "benchmark_value": 3.88,
+      "benchmark_date": "2026-10-08",
+      "spread": 0.75
+    },
+    {
+      "id": "schwab-pal-small",
+      "firm": "Charles Schwab",
+      "product": "Pledged Asset Line, under $250k",
+      "type": "benchmark",
+      "source_url": "https://www.schwab.com/pledged-asset-line/rates",
+      "verified": "2026-10-12",
+      "confidence": "reported",
+      "note": "Schwab prices PAL as SOFR plus a spread set at origination. This spread is third-party reported (sources conflict, 3.75% to 4.40%). Confirm with Schwab.",
+      "rate": 7.62,
+      "benchmark": "SOFR",
+      "benchmark_value": 3.87,
+      "benchmark_date": "2026-10-08",
+      "spread": 3.75
+    },
+    {
+      "id": "schwab-pal-large",
+      "firm": "Charles Schwab",
+      "product": "Pledged Asset Line, $5M and up",
+      "type": "benchmark",
+      "source_url": "https://www.schwab.com/pledged-asset-line/rates",
+      "verified": "2026-10-12",
+      "confidence": "reported",
+      "note": "Third-party reported spread. Confirm with Schwab.",
+      "rate": 5.62,
+      "benchmark": "SOFR",
+      "benchmark_value": 3.87,
+      "benchmark_date": "2026-10-08",
+      "spread": 1.75
+    },
+    {
+      "id": "fidelity-margin-250k",
+      "firm": "Fidelity",
+      "product": "Margin, $250k to $500k",
+      "type": "base",
+      "source_url": "https://www.fidelity.com/trading/commissions-margin-rates",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Base rate 10.825% (effective 2026-09-18) minus 0.50% at this tier. Fidelity changes its base rate on its own schedule.",
+      "rate": 10.325
+    },
+    {
+      "id": "fidelity-margin-1m",
+      "firm": "Fidelity",
+      "product": "Margin, over $1M",
+      "type": "base",
+      "source_url": "https://www.fidelity.com/trading/margin-loans/overview",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "Posted on Fidelity's margin-loans overview page.",
+      "rate": 7.75
+    },
+    {
+      "id": "schwab-margin-250k",
+      "firm": "Charles Schwab",
+      "product": "Margin, $250k to $500k",
+      "type": "base",
+      "source_url": "https://www.schwab.com/margin",
+      "verified": "2026-10-12",
+      "confidence": "official",
+      "note": "From Schwab's own comparison page. Schwab changes its base rate on its own schedule.",
+      "rate": 10.325
+    }
+  ],
+  "built_utc": "2026-10-12T16:01Z"
+}
