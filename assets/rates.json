@@ -2,11 +2,11 @@
   "benchmarks": {
     "EFFR": {
       "value": 3.88,
-      "date": "2026-10-08"
+      "date": "2026-10-09"
     },
     "SOFR": {
       "value": 3.87,
-      "date": "2026-10-08"
+      "date": "2026-10-09"
     }
   },
   "products": [
@@ -22,7 +22,7 @@
       "rate": 5.38,
       "benchmark": "EFFR",
       "benchmark_value": 3.88,
-      "benchmark_date": "2026-10-08",
+      "benchmark_date": "2026-10-09",
       "spread": 1.5
     },
     {
@@ -37,7 +37,7 @@
       "rate": 4.88,
       "benchmark": "EFFR",
       "benchmark_value": 3.88,
-      "benchmark_date": "2026-10-08",
+      "benchmark_date": "2026-10-09",
       "spread": 1.0
     },
     {
@@ -52,7 +52,7 @@
       "rate": 4.63,
       "benchmark": "EFFR",
       "benchmark_value": 3.88,
-      "benchmark_date": "2026-10-08",
+      "benchmark_date": "2026-10-09",
       "spread": 0.75
     },
     {
@@ -67,7 +67,7 @@
       "rate": 7.62,
       "benchmark": "SOFR",
       "benchmark_value": 3.87,
-      "benchmark_date": "2026-10-08",
+      "benchmark_date": "2026-10-09",
       "spread": 3.75
     },
     {
@@ -82,7 +82,7 @@
       "rate": 5.62,
       "benchmark": "SOFR",
       "benchmark_value": 3.87,
-      "benchmark_date": "2026-10-08",
+      "benchmark_date": "2026-10-09",
       "spread": 1.75
     },
     {
@@ -119,5 +119,5 @@
       "rate": 10.325
     }
   ],
-  "built_utc": "2026-10-12T16:01Z"
+  "built_utc": "2026-10-13T20:27Z"
 }
