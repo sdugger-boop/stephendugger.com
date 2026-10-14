@@ -1,8 +1,8 @@
 {
-  "yoy": 3.4,
-  "month": "2026-08",
-  "label": "August 2026",
+  "yoy": 3.7,
+  "month": "2026-09",
+  "label": "September 2026",
   "series": "BLS CPI-U, all items, not seasonally adjusted (FRED CPIAUCNS)",
   "source_url": "https://fred.stlouisfed.org/series/CPIAUCNS",
-  "fetched_utc": "2026-10-12T13:42Z"
+  "fetched_utc": "2026-10-14T19:05Z"
 }
