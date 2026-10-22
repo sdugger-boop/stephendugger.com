@@ -2,11 +2,11 @@
   "benchmarks": {
     "EFFR": {
       "value": 3.88,
-      "date": "2026-10-19"
+      "date": "2026-10-21"
     },
     "SOFR": {
-      "value": 3.87,
-      "date": "2026-10-19"
+      "value": 3.88,
+      "date": "2026-10-21"
     }
   },
   "products": [
@@ -22,7 +22,7 @@
       "rate": 5.38,
       "benchmark": "EFFR",
       "benchmark_value": 3.88,
-      "benchmark_date": "2026-10-19",
+      "benchmark_date": "2026-10-21",
       "spread": 1.5
     },
     {
@@ -37,7 +37,7 @@
       "rate": 4.88,
       "benchmark": "EFFR",
       "benchmark_value": 3.88,
-      "benchmark_date": "2026-10-19",
+      "benchmark_date": "2026-10-21",
       "spread": 1.0
     },
     {
@@ -52,7 +52,7 @@
       "rate": 4.63,
       "benchmark": "EFFR",
       "benchmark_value": 3.88,
-      "benchmark_date": "2026-10-19",
+      "benchmark_date": "2026-10-21",
       "spread": 0.75
     },
     {
@@ -64,10 +64,10 @@
       "verified": "2026-10-12",
       "confidence": "reported",
       "note": "Schwab prices PAL as SOFR plus a spread set at origination. This spread is third-party reported (sources conflict, 3.75% to 4.40%). Confirm with Schwab.",
-      "rate": 7.62,
+      "rate": 7.63,
       "benchmark": "SOFR",
-      "benchmark_value": 3.87,
-      "benchmark_date": "2026-10-19",
+      "benchmark_value": 3.88,
+      "benchmark_date": "2026-10-21",
       "spread": 3.75
     },
     {
@@ -79,10 +79,10 @@
       "verified": "2026-10-12",
       "confidence": "reported",
       "note": "Third-party reported spread. Confirm with Schwab.",
-      "rate": 5.62,
+      "rate": 5.63,
       "benchmark": "SOFR",
-      "benchmark_value": 3.87,
-      "benchmark_date": "2026-10-19",
+      "benchmark_value": 3.88,
+      "benchmark_date": "2026-10-21",
       "spread": 1.75
     },
     {
@@ -119,5 +119,5 @@
       "rate": 10.325
     }
   ],
-  "built_utc": "2026-10-20T18:50Z"
+  "built_utc": "2026-10-22T18:58Z"
 }
