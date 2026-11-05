@@ -5,8 +5,8 @@
       "date": "2026-11-03"
     },
     "SOFR": {
-      "value": 3.97,
-      "date": "2026-11-03"
+      "value": 3.94,
+      "date": "2026-11-04"
     }
   },
   "products": [
@@ -64,10 +64,10 @@
       "verified": "2026-10-12",
       "confidence": "reported",
       "note": "Schwab prices PAL as SOFR plus a spread set at origination. This spread is third-party reported (sources conflict, 3.75% to 4.40%). Confirm with Schwab.",
-      "rate": 7.72,
+      "rate": 7.69,
       "benchmark": "SOFR",
-      "benchmark_value": 3.97,
-      "benchmark_date": "2026-11-03",
+      "benchmark_value": 3.94,
+      "benchmark_date": "2026-11-04",
       "spread": 3.75
     },
     {
@@ -79,10 +79,10 @@
       "verified": "2026-10-12",
       "confidence": "reported",
       "note": "Third-party reported spread. Confirm with Schwab.",
-      "rate": 5.72,
+      "rate": 5.69,
       "benchmark": "SOFR",
-      "benchmark_value": 3.97,
-      "benchmark_date": "2026-11-03",
+      "benchmark_value": 3.94,
+      "benchmark_date": "2026-11-04",
       "spread": 1.75
     },
     {
@@ -119,5 +119,5 @@
       "rate": 10.325
     }
   ],
-  "built_utc": "2026-11-04T20:59Z"
+  "built_utc": "2026-11-05T13:36Z"
 }
