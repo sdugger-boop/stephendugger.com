@@ -1,0 +1,375 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CalPERS Leave Date | Stephen Dugger</title>
+<meta name="description" content="For California peace officers in CalPERS: what each leave date pays in pension and retiree health, the steps you'd walk away from in the next twelve months, and whether deferring beats retiring now. Nothing you enter leaves your browser.">
+<link rel="canonical" href="https://stephendugger.com/tools/calpers-leave-date/">
+<meta property="og:site_name" content="Stephen Dugger">
+<meta property="og:title" content="CalPERS Leave Date | Stephen Dugger">
+<meta property="og:description" content="For California peace officers in CalPERS: what each leave date pays in pension and retiree health, the steps you'd walk away from in the next twelve months, and whether deferring beats retiring now. Nothing you enter leaves your browser.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://stephendugger.com/tools/calpers-leave-date/">
+<meta property="og:image" content="https://stephendugger.com/assets/card.jpg">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="color-scheme" content="dark">
+<link rel="icon" type="image/png" href="/assets/favicon.png">
+<link rel="apple-touch-icon" href="/assets/apple-touch-icon.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital@0;1&family=Inter:wght@400;500;600;700&family=JetBrains+Mono:wght@400;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/site.css?v=b65defd8">
+</head>
+<body>
+<nav><div class="nav-inner">
+<a class="nav-mark" href="/"><span class="dot"></span> STEPHEN DUGGER</a>
+<button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false">&#9776;</button>
+<div class="nav-links" id="navLinks"><a href="/trading/">Trading</a><a href="/tools/" class="active">Tools</a><a href="/business/">Business</a><a href="/coaching/">Training</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/about/">About</a></div>
+</div></nav>
+<main>
+<link rel="stylesheet" href="/assets/tools.css">
+<style>
+  .calc input[type=date] { width: 100%; background: var(--charcoal); border: 1px solid var(--line); color: var(--bone); border-radius: 3px; padding: 8px 10px; font: inherit; font-size: 15px; color-scheme: dark; }
+  .calc input[type=date]:focus { outline: none; border-color: var(--gold); }
+  .rule120 { border: 1px solid rgba(184,150,12,0.45); border-radius: 4px; padding: 16px 18px; margin: 22px 0 6px; background: var(--charcoal); color: var(--muted); font-size: 15px; }
+  .rule120 strong { color: var(--bone); }
+  .result .table-scroll { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+  .result td.r, .result th.r { text-align: right; }
+  .result tr.mine td { color: var(--bone); }
+  .result .up { color: var(--gold); }
+  .result td small { display: block; color: var(--faint); font-size: 12px; line-height: 1.35; margin-top: 2px; white-space: normal; }
+  .result td.why { white-space: normal; }
+  @media (max-width: 640px) { .result .hide-sm { display: none; } .result table { font-size: 13px; } }
+  [hidden] { display: none !important; }
+</style>
+
+<div class="page-head"><div class="wrap narrow">
+  <div class="eyebrow">Tool · CalPERS Leave Date</div>
+  <h1>Pick your date<br><em>before it picks you.</em></h1>
+  <p class="sub">For California peace officers in CalPERS. Put in your own numbers and see what a leave date pays in pension and retiree health, what you'd walk away from by going a few months early, and whether leaving the money until 57 beats starting it now. It's the math from the free guide, <a class="inline" href="/guides/calpers-exit-math/">CalPERS Exit Math</a>, run on your case.</p>
+</div></div>
+
+<section><div class="wrap narrow prose">
+  <div class="note">Nothing you type here is saved or sent anywhere. The math runs in your browser, and closing the page erases it.</div>
+
+  <div class="rule120"><strong>The 120-day rule comes first.</strong> To keep CalPERS health in retirement, your pension has to start within 120 days of your last day on the job, from an agency that covers your group. Miss it and the coverage can't be reinstated. A safety member can't retire before 50, so leaving before 50 means no CalPERS retiree health unless you go to another CalPERS employer and retire from there. This tool flags both.</div>
+
+  <div class="calc">
+    <div class="sublabel">You and your formula</div>
+    <div class="fields">
+      <div class="field">
+        <label for="birth">Date of birth</label>
+        <input type="date" id="birth">
+      </div>
+      <div class="field">
+        <label for="formula">Retirement formula</label>
+        <select id="formula">
+          <option value="p27" selected>PEPRA 2.7% at 57</option>
+          <option value="p25">PEPRA 2.5% at 57</option>
+          <option value="p20">PEPRA 2% at 57</option>
+          <option value="c350">Classic 3% at 50</option>
+          <option value="c355">Classic 3% at 55</option>
+          <option value="c250">Classic 2% at 50</option>
+          <option value="c255">Classic 2% at 55</option>
+        </select>
+        <small>On your Annual Member Statement in myCalPERS. Hired into CalPERS after 2012 with no prior membership usually means PEPRA.</small>
+      </div>
+      <div class="field">
+        <label for="credit">Service credit, years</label>
+        <input type="number" id="credit" min="0" max="45" step="0.001">
+        <small>From the same statement, partial years included (e.g. 8.412). The tool adds a year for every year you keep working full time.</small>
+      </div>
+      <div class="field">
+        <label for="creditAsOf">That figure is as of</label>
+        <input type="date" id="creditAsOf">
+        <small>The statement's date. Statements usually run to June 30.</small>
+      </div>
+      <div class="field">
+        <label for="agencyHire">Hired at your current agency</label>
+        <input type="date" id="agencyHire">
+        <small>GC 22893 needs at least 5 years with the agency you retire from. Leave blank to skip that check.</small>
+      </div>
+      <div class="field" id="compWrap" hidden>
+        <label for="compMonths">Final compensation period</label>
+        <select id="compMonths"><option value="12">12 months</option><option value="36" selected>36 months</option></select>
+        <small>Classic members get 12 or 36 months, by agency contract. PEPRA is always 36.</small>
+      </div>
+    </div>
+
+    <div class="sublabel">Your pay</div>
+    <div class="fields">
+      <div class="field">
+        <label for="pay">Pensionable pay now, per month</label>
+        <input type="number" id="pay" min="0" step="10">
+        <small>Base pay plus the items that count (often POST and longevity pay). Overtime doesn't. Ask HR which of yours do.</small>
+      </div>
+      <div class="field">
+        <label class="check" style="margin-top:28px"><input type="checkbox" id="ss"> <span>My agency pays into Social Security</span></label>
+        <small>Sets the PEPRA pay cap: $159,733 a year with Social Security, $191,679 without (2026). Most officers are well under it.</small>
+      </div>
+    </div>
+    <p class="small">Raises still ahead of you (optional). A step or longevity raise that lands inside your last 36 months lifts your final compensation. Leave out cost-of-living raises: everything here is in today's dollars.</p>
+    <table>
+      <thead><tr><th style="width:55%">Date it starts</th><th class="r">Raise, %</th><th></th></tr></thead>
+      <tbody id="steps"></tbody>
+    </table>
+    <button class="btn addrow" type="button" id="addStep">+ Add a raise</button>
+
+    <div class="sublabel">Retiree health</div>
+    <div class="fields">
+      <div class="field">
+        <label for="healthType">What your MOU gives retirees</label>
+        <select id="healthType">
+          <option value="22893" selected>GC 22893 vesting schedule</option>
+          <option value="flat">A flat dollar amount</option>
+          <option value="min">The PEMHCA minimum ($162 a month in 2026)</option>
+          <option value="none">Nothing / my agency isn't in CalPERS health</option>
+        </select>
+        <small>Your MOU's retiree-health section says which. 22893 pays nothing under 10 years, 50% at 10, plus 5% a year, 100% at 20.</small>
+      </div>
+      <div class="field" id="flatWrap" hidden>
+        <label for="healthFlat">The flat amount, per month</label>
+        <input type="number" id="healthFlat" min="0" step="10">
+        <small>What your agency pays toward a retiree's premium.</small>
+      </div>
+      <div class="field">
+        <label for="healthBase">A single CalPERS premium, per month</label>
+        <input type="number" id="healthBase" min="0" step="1" value="1084">
+        <small>Under 22893 your share is a percentage of this amount, not of your plan's price. $1,084 is the 2026 single "100/90" figure. Use your 2-party or family figure if that's your coverage.</small>
+      </div>
+    </div>
+
+    <div class="sublabel">Your leave plan</div>
+    <div class="fields">
+      <div class="field">
+        <label for="sep">Last day on the job (separation)</label>
+        <input type="date" id="sep">
+      </div>
+      <div class="field">
+        <label for="ret">Pension starts (retirement date)</label>
+        <input type="date" id="ret">
+        <small>Leave blank for the same day. More than 120 days later, you lose CalPERS retiree health.</small>
+      </div>
+      <div class="field">
+        <label for="sick">Unused sick leave at the end, hours (optional)</label>
+        <input type="number" id="sick" min="0" step="8" value="0">
+        <small>Only if your agency contracts for it. 2,000 hours adds one year to the pension, and only when you retire within 120 days. It very likely doesn't count toward the health share.</small>
+      </div>
+      <div class="field">
+        <label for="cola">Pension cost-of-living raise, % a year</label>
+        <input type="number" id="cola" min="0" max="5" step="0.5" value="2">
+        <small>2% on most local safety contracts. Used only to compare retiring now with waiting until 57.</small>
+      </div>
+    </div>
+
+    <div class="sublabel">After you leave (optional)</div>
+    <div class="fields">
+      <div class="field">
+        <label for="bills">Monthly bills, after tax</label>
+        <input type="number" id="bills" min="0" step="10">
+        <small>What you spend in a typical month, health insurance left out (the tool adds it).</small>
+      </div>
+      <div class="field">
+        <label for="keep">Share of new income you keep after tax, %</label>
+        <input type="number" id="keep" min="20" max="100" step="1" value="70">
+        <small>About 70% for a W-2 job, closer to 58% for self-employment. Yours depends on your state and deductions.</small>
+      </div>
+    </div>
+
+    <div class="buttons">
+      <button class="btn solid" id="go" type="button">Run my numbers</button>
+      <button class="btn" id="example" type="button">Try an example</button>
+      <button class="btn" id="clear" type="button">Clear</button>
+    </div>
+    <p class="small" id="err" style="margin-top:12px"></p>
+  </div>
+
+  <div class="result" id="result" aria-live="polite">
+    <div class="big">
+      <div><div class="n gold" id="rPension">$0</div><div class="l">Pension, per month</div></div>
+      <div><div class="n" id="rHealth">$0</div><div class="l">Health share, per month</div></div>
+      <div><div class="n" id="rTotal">$0</div><div class="l">Together</div></div>
+    </div>
+    <p id="rPlan"></p>
+    <div id="rWarn"></div>
+    <div id="rSteps"></div>
+    <div id="rTable"></div>
+    <div id="rDefer"></div>
+    <div id="rNeed"></div>
+    <p class="small">Today's dollars, the unmodified allowance (the largest check, no survivor benefit). Check every number against a myCalPERS estimate before you pick a date.</p>
+    <div class="keep no-print" id="keep"></div>
+  </div>
+
+  <div class="prose" style="margin-top:34px">
+    <h3>What this leaves out</h3>
+    <p class="small">Service from another CalPERS formula (miscellaneous years, for example) earns its own lower factor; myCalPERS handles that, this tool counts every year at your safety formula. A lateral to another agency, reciprocity with a county system, the Social Security offset some classic members have, purchased service, and survivor options are all outside it. So is anything your MOU does differently from the statute. The guide covers what each one means. The authority on your pension is CalPERS, and on your retiree health it's your MOU and HR.</p>
+    <p class="small">This is a planning tool, not financial, legal, tax or retirement advice. Run the estimate in myCalPERS, call 888 CalPERS (888-225-7377), and get your separation and retirement dates confirmed in writing before you sign anything.</p>
+  </div>
+
+  <div class="nexttool">
+    <div class="label">Next</div>
+    <p><a class="inline" href="/tools/the-way-out/">The Way Out</a>: the three conditions for leaving a paycheck, once you know what the pension covers.</p>
+  </div>
+</div></section>
+
+<script src="/assets/tools.js"></script>
+<script src="/assets/calpers-leave.js"></script>
+<script>
+(function () {
+  const T = window.Tools, C = window.CalpersLeave, $ = (id) => document.getElementById(id);
+  const tbody = $('steps');
+  const MON = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+  const fd = (d) => MON[d.getUTCMonth()] + ' ' + d.getUTCDate() + ', ' + d.getUTCFullYear();
+  const fage = (a) => { const m = Math.round(a.exact * 12) % 12; return a.years + (m ? ' and ' + m + ' mo' : ''); };
+  const fyrs = (y) => y.toFixed(2).replace(/\.?0+$/, '');
+  const pct0 = (x) => Math.round(x * 100) + '%';
+
+  function addStep(d) {
+    d = d || ['', ''];
+    const tr = document.createElement('tr');
+    tr.innerHTML = '<td><input type="date" aria-label="Raise starts" value="' + T.esc(d[0]) + '"></td>' +
+      '<td><input type="number" min="0" max="50" step="0.5" aria-label="Raise percent" value="' + T.esc(d[1]) + '"></td>' +
+      '<td><button class="del" type="button" aria-label="Remove">×</button></td>';
+    tr.querySelector('.del').addEventListener('click', () => tr.remove());
+    tbody.appendChild(tr);
+  }
+  addStep();
+  $('addStep').addEventListener('click', () => addStep());
+
+  function syncVisibility() {
+    $('compWrap').hidden = $('formula').value.charAt(0) !== 'c';
+    if ($('compWrap').hidden) $('compMonths').value = '36';
+    $('flatWrap').hidden = $('healthType').value !== 'flat';
+  }
+  $('formula').addEventListener('change', syncVisibility);
+  $('healthType').addEventListener('change', syncVisibility);
+  syncVisibility();
+
+  const todayUTC = () => { const n = new Date(); return new Date(Date.UTC(n.getFullYear(), n.getMonth(), n.getDate())); };
+  if (!$('creditAsOf').value) $('creditAsOf').value = C.iso(todayUTC());
+
+  function read() {
+    const birth = C.parse($('birth').value), asOf = C.parse($('creditAsOf').value), sep = C.parse($('sep').value);
+    const ret = C.parse($('ret').value);
+    const missing = [];
+    if (!birth) missing.push('date of birth');
+    if ($('credit').value === '') missing.push('service credit');
+    if (!asOf) missing.push('the statement date');
+    if (!(T.pos('pay') > 0)) missing.push('pensionable pay');
+    if (!sep) missing.push('your last day on the job');
+    if (missing.length) return { error: 'Fill in ' + missing.join(', ') + '.' };
+    if (ret && ret < sep) return { error: 'The retirement date can\'t be before your last day on the job.' };
+    if (sep < asOf) return { error: 'Your last day has to be after the statement date. Use a statement from before you leave.' };
+    const steps = [...tbody.children].map((tr) => {
+      const f = tr.querySelectorAll('input');
+      return { date: C.parse(f[0].value), pct: parseFloat(f[1].value) };
+    }).filter((s) => s.date && isFinite(s.pct) && s.pct !== 0);
+    return {
+      birth: birth, today: todayUTC(), formula: $('formula').value, credit: T.pos('credit'), creditAsOf: asOf,
+      agencyHire: C.parse($('agencyHire').value), pay: T.pos('pay'), steps: steps, socialSecurity: $('ss').checked,
+      compMonths: parseInt($('compMonths').value, 10), healthType: $('healthType').value, healthBase: T.pos('healthBase'),
+      healthFlat: T.pos('healthFlat'), sep: sep, ret: ret || sep, sickHours: T.pos('sick'), cola: T.pos('cola'),
+      bills: T.pos('bills'), keep: Math.min(100, Math.max(20, T.pos('keep') || 70)),
+    };
+  }
+
+  let lastText = '';
+  function run() {
+    const inp = read();
+    if (inp.error) { $('err').textContent = inp.error; $('result').classList.remove('show'); return; }
+    $('err').textContent = '';
+    const R = C.run(inp), p = R.plan;
+    $('result').classList.add('show');
+    $('rPension').textContent = T.fmt(p.pension);
+    $('rHealth').textContent = T.fmt(p.healthShare);
+    $('rTotal').textContent = T.fmt(p.total);
+
+    const sameDay = p.gap === 0;
+    $('rPlan').innerHTML = 'Leave on <strong>' + fd(p.sep) + '</strong>' + (sameDay ? ' and retire the same day' : ', start the pension on <strong>' + fd(p.ret) + '</strong> (' + p.gap + ' days later)') +
+      '. You\'d be <strong>' + fage(p.age) + '</strong> with <strong>' + fyrs(p.years) + ' years</strong> of service' + (p.sickYears ? ' plus ' + fyrs(p.sickYears) + ' from sick leave' : '') + '. ' +
+      (p.canRetire ? 'Age factor <strong>' + p.factor.toFixed(3) + '%</strong> × ' + fyrs(p.years + p.sickYears) + ' years = <strong>' + p.pctOfPay.toFixed(1) + '%</strong> of a final compensation of <strong>' + T.fmt(p.finalComp) + '</strong> a month.' : 'No pension can start on that date.') +
+      (p.keepsHealth && inp.healthType !== 'none' ? ' Retiree health share: <strong>' + (inp.healthType === '22893' ? pct0(p.healthPct) + ' of ' + T.fmt(inp.healthBase) : T.fmt(p.healthShare)) + '</strong>.' : '');
+    $('rWarn').innerHTML = R.warnings.map((w) => '<div class="warn">' + w + '</div>').join('');
+
+    // Steps in the next 12 months.
+    const gains = R.steps.filter((s) => s.gain > 0.5);
+    $('rSteps').innerHTML = '<div class="label" style="margin:26px 0 0">Steps in the 12 months after your date</div>' + (gains.length
+      ? '<p>Each row is what staying until that date adds to your monthly total, for life, counting the extra service you\'d earn on the way.</p><div class="table-scroll"><table><thead><tr><th>Stay until</th><th class="r">Pension</th><th class="r">Health</th><th class="r">Per year</th></tr></thead><tbody>' +
+        gains.map((s) => '<tr><td class="b why">' + fd(s.date) + '<small>' + T.esc(s.why) + '</small></td><td class="r up">+' + T.fmt(s.gainPension) + '</td><td class="r up">' + (s.gainHealth > 0.5 ? '+' + T.fmt(s.gainHealth) : '') + '</td><td class="r b">+' + T.fmt(s.gain * 12) + '</td></tr>').join('') + '</tbody></table></div>'
+      : '<p>No age-factor, health or pay steps land in the 12 months after your date. Each extra month still adds a month of service.</p>');
+
+    // Every birthday 50 to 57.
+    if (R.table.length) {
+      $('rTable').innerHTML = '<div class="label" style="margin:26px 0 0">If you work to each birthday</div><p>Leave and retire the same day.</p><div class="table-scroll"><table><thead><tr><th>Leave</th><th class="r">Years</th><th class="r hide-sm">Factor</th><th class="r hide-sm">% of pay</th><th class="r">Pension</th><th class="r">Health</th><th class="r">Together</th></tr></thead><tbody>' +
+        R.table.map((r) => '<tr><td class="b">' + r.label + '<small>' + fd(r.sep) + '</small></td><td class="r">' + fyrs(r.years) + '</td><td class="r hide-sm">' + r.factor.toFixed(3) + '%</td><td class="r hide-sm">' + r.pctOfPay.toFixed(1) + '%</td><td class="r">' + T.fmt(r.pension) + '</td><td class="r">' + (r.healthShare ? T.fmt(r.healthShare) + (inp.healthType === '22893' ? ' <small>' + pct0(r.healthPct) + '</small>' : '') : '$0') + '</td><td class="r b">' + T.fmt(r.total) + '</td></tr>').join('') + '</tbody></table></div>';
+    } else $('rTable').innerHTML = '';
+
+    // Retire now vs wait to 57.
+    const D = R.defer;
+    if (D && D.later.pension > D.now.pension + 0.5) {
+      const cu = (c) => c ? 'about age ' + Math.round(c.age) : 'not before 110';
+      $('rDefer').innerHTML = '<div class="label" style="margin:26px 0 0">Start the pension now, or leave it until 57?</div>' +
+        '<p>Start it on your date: <strong>' + T.fmt(D.now.pension) + '</strong> a month' + (D.now.healthShare ? ', plus <strong>' + T.fmt(D.now.healthShare) + '</strong> in health share' : '') + '. Leave the money with CalPERS and start it at 57: <strong>' + T.fmt(D.later.pension) + '</strong> a month (your final compensation stays frozen at what you earned when you left), and no CalPERS retiree health.</p>' +
+        '<p>Waiting pays <strong>' + T.fmt(D.later.pension - D.now.pension) + '</strong> a month more from 57. With no cost-of-living raises it catches up at <strong>' + cu(D.catchFlat) + '</strong>. With a ' + inp.cola + '% raise on both checks it catches up at <strong>' + cu(D.catchCola) + '</strong>' + (D.now.healthShare ? ', and that\'s before the health share it gives up (' + T.fmt(D.now.healthShare * 12) + ' a year)' : '') + '.</p>';
+    } else $('rDefer').innerHTML = '';
+
+    // Side income needed.
+    const N = R.need;
+    if (N) {
+      $('rNeed').innerHTML = '<div class="label" style="margin:26px 0 0">What you\'d need to earn after leaving</div>' +
+        '<p>Bills ' + T.fmt(N.bills) + ' + the health premium you\'d pay ' + T.fmt(N.healthYouPay) + (N.pension ? ' − pension ' + T.fmt(N.pension) : '') + ' = <strong>' + T.fmt(N.net) + ' a month</strong> after tax. At ' + inp.keep + '% kept, that\'s <strong>' + T.fmt(N.grossMonth) + ' a month</strong> before tax, <strong>' + T.fmt(N.grossYear) + ' a year</strong>.' +
+        (N.waitingOnPension ? ' Your pension isn\'t paying yet on this plan, so that income carries everything until it starts.' : '') + '</p>';
+    } else $('rNeed').innerHTML = '';
+
+    const F = C.FORMULAS[inp.formula].name;
+    lastText =
+      'MY LEAVE DATE (' + F + ', today\'s dollars)\n' +
+      'Leave ' + fd(p.sep) + (sameDay ? ', retire the same day' : ', pension starts ' + fd(p.ret) + ' (' + p.gap + ' days later)') + '\n' +
+      'Age ' + fage(p.age) + ', ' + fyrs(p.years) + ' years' + (p.sickYears ? ' + ' + fyrs(p.sickYears) + ' sick leave' : '') + '\n' +
+      'Factor ' + p.factor.toFixed(3) + '% -> ' + p.pctOfPay.toFixed(1) + '% of ' + T.fmt(p.finalComp) + '/mo final compensation\n' +
+      'Pension ' + T.fmt(p.pension) + '/mo + health share ' + T.fmt(p.healthShare) + '/mo = ' + T.fmt(p.total) + '/mo\n' +
+      (R.warnings.length ? '\nWATCH\n' + R.warnings.map((w) => '- ' + w).join('\n') + '\n' : '') +
+      (gains.length ? '\nSTEPS IN THE NEXT 12 MONTHS\n' + gains.map((s) => '- ' + fd(s.date) + ': ' + s.why + ' (+' + T.fmt(s.gain) + '/mo, +' + T.fmt(s.gain * 12) + '/yr)').join('\n') + '\n' : '') +
+      (R.table.length ? '\nWORK TO EACH BIRTHDAY\n' + R.table.map((r) => '- ' + r.label + ' (' + fd(r.sep) + '): ' + fyrs(r.years) + ' yrs, ' + T.fmt(r.pension) + ' pension + ' + T.fmt(r.healthShare) + ' health = ' + T.fmt(r.total) + '/mo').join('\n') + '\n' : '') +
+      (D && D.later.pension > D.now.pension + 0.5 ? '\nNOW OR AT 57\nNow ' + T.fmt(D.now.pension) + '/mo; at 57 ' + T.fmt(D.later.pension) + '/mo with no retiree health. Catch-up: ' + (D.catchFlat ? 'age ' + Math.round(D.catchFlat.age) : 'none') + ' flat, ' + (D.catchCola ? 'age ' + Math.round(D.catchCola.age) : 'none') + ' with ' + inp.cola + '% COLA\n' : '') +
+      (N ? '\nINCOME NEEDED AFTER LEAVING\n' + T.fmt(N.net) + '/mo after tax = ' + T.fmt(N.grossYear) + '/yr before tax at ' + inp.keep + '% kept\n' : '') +
+      '\nCheck every number against a myCalPERS estimate before you pick a date.';
+  }
+
+  T.wireKeep($('keep'), () => lastText, 'My CalPERS leave date');
+  $('go').addEventListener('click', run);
+  $('example').addEventListener('click', () => {
+    // A made-up officer: hired at 35 on PEPRA 2.7% at 57, 8.5 years in, looking at leaving just after 50.
+    const t = todayUTC(), y = t.getUTCFullYear();
+    $('birth').value = (y - 44) + '-03-10'; $('formula').value = 'p27'; syncVisibility();
+    $('credit').value = 8.5; $('creditAsOf').value = (y - 1) + '-06-30'; $('agencyHire').value = (y - 9) + '-12-31';
+    $('pay').value = 9000; $('ss').checked = false;
+    tbody.innerHTML = ''; addStep([(y + 3) + '-12-31', 5]);
+    $('healthType').value = '22893'; syncVisibility(); $('healthBase').value = 1084; $('healthFlat').value = '';
+    $('sep').value = (y + 6) + '-04-15'; $('ret').value = ''; $('sick').value = 0; $('cola').value = 2;
+    $('bills').value = 5200; $('keep').value = 70;
+    run();
+    $('result').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  });
+  $('clear').addEventListener('click', () => {
+    ['birth', 'credit', 'agencyHire', 'pay', 'sep', 'ret', 'bills', 'healthFlat'].forEach((id) => { $(id).value = ''; });
+    $('creditAsOf').value = C.iso(todayUTC()); $('formula').value = 'p27'; $('ss').checked = false; $('healthType').value = '22893';
+    $('healthBase').value = 1084; $('sick').value = 0; $('cola').value = 2; $('keep').value = 70; syncVisibility();
+    tbody.innerHTML = ''; addStep(); $('err').textContent = ''; $('result').classList.remove('show');
+  });
+})();
+</script>
+</main>
+<footer>
+<div class="foot-links"><a href="/trading/">Trading</a><a href="/tools/" class="active">Tools</a><a href="/business/">Business</a><a href="/coaching/">Training</a><a href="/press/">Press</a><a href="/os/">OS</a><a href="/about/">About</a><a href="/formation/">Formation</a><a href="/privacy/">Privacy</a><a href="/terms/">Terms</a></div>
+<p class="made">Written by Stephen Dugger with help from Claude, an AI/SI model.</p>
+<div class="copy">STEPHENDUGGER.COM &nbsp;◎&nbsp; ALL DEMONSTRATIONS, ONE SOURCE &nbsp;·&nbsp; &copy; 2026</div>
+</footer>
+<script>
+const t=document.getElementById('navToggle'),l=document.getElementById('navLinks');
+t.addEventListener('click',()=>{const o=l.classList.toggle('open');t.setAttribute('aria-expanded',o);});
+l.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>l.classList.remove('open')));
+</script>
+</body>
+</html>
