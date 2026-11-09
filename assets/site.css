@@ -128,3 +128,12 @@ footer { padding: 50px 24px 60px; text-align: center; border-top: 1px solid var(
 .plan .soon { font-family: 'JetBrains Mono', monospace; font-size: 12px; letter-spacing: 0.06em; text-transform: uppercase; color: var(--faint); }
 .shelf-note { font-size: 13px; color: var(--faint); margin-top: 18px; }
 @media (max-width: 760px) { .shelf { grid-template-columns: 1fr; } .plan.feature { grid-column: auto; } }
+
+/* Guides (2026-11-08): tables, checklists, source lists */
+.prose .table-wrap { overflow-x: auto; margin: 8px 0 24px; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 0.95em; }
+.prose th, .prose td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); color: var(--muted); white-space: nowrap; }
+.prose th { color: var(--bone); font-weight: 600; }
+.prose ul.checklist { list-style: none; padding-left: 0; }
+.prose sup a { border-bottom: none; font-size: 0.8em; }
+.prose ol.sources li { font-size: 0.9em; overflow-wrap: anywhere; }
